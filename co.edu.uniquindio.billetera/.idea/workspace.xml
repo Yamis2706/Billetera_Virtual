@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfb8ed30-1691-424b-a9ce-9ff7558afa72" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/CategoriaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/TransaccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/TransaccionController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Categoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Categoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/utils/DataUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/utils/DataUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/viewController/LoginViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/viewController/LoginViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Login.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Transacciones.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Transacciones.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/transacciones.dat" beforeDir="false" afterPath="$PROJECT_DIR$/transacciones.dat" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +25,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -56,7 +61,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "Dev__Fabian",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/DELL/Documents/Programación II/billeteraVirtual-main (6)",
+    "last_opened_file_path": "C:/Users/DELL/Documents/Programación II/Billetera_Virtual/co.edu.uniquindio.billetera",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -126,21 +131,11 @@
       <updated>1748206160745</updated>
       <workItem from="1748206161704" duration="17052000" />
       <workItem from="1748225766525" duration="26638000" />
+      <workItem from="1748286735160" duration="8476000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/TransaccionController.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

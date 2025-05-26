@@ -13,7 +13,11 @@ public class Categoria implements Serializable {
         this.descripcion = descripcion;
     }
 
-    // Getters y setters
+    // Alias para compatibilidad con controladores
+    public String getId() { return idCategoria; }
+    public void setId(String id) { this.idCategoria = id; }
+
+    // Getters y setters originales
     public String getIdCategoria() { return idCategoria; }
     public void setIdCategoria(String idCategoria) { this.idCategoria = idCategoria; }
     public String getNombre() { return nombre; }

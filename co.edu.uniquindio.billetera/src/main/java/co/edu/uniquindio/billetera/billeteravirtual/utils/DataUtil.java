@@ -58,6 +58,9 @@ public class DataUtil {
         return cargarLista(ARCHIVO_TRANSACCIONES);
     }
 
+    public static void guardarTransacciones(List<Transaccion> transacciones) {
+        guardarLista(new ArrayList<>(transacciones), ARCHIVO_TRANSACCIONES);
+    }
 
     public static List<Cuenta> cargarCuentas() {
         return cargarLista(ARCHIVO_CUENTAS);
@@ -75,12 +78,61 @@ public class DataUtil {
         guardarLista(presupuestos, ARCHIVO_PRESUPUESTOS);
     }
 
-    public static List<Categoria> cargarCategorias() {
-        return cargarLista(ARCHIVO_CATEGORIAS);
-    }
-
     public static void guardarCategorias(List<Categoria> categorias) {
         guardarLista(categorias, ARCHIVO_CATEGORIAS);
+    }
+
+    // Solo un método cargarCategorias, que garantiza categorías por defecto
+    public static List<Categoria> cargarCategorias() {
+        List<Categoria> categorias = cargarLista(ARCHIVO_CATEGORIAS);
+        if (categorias == null || categorias.isEmpty()) {
+            categorias = Arrays.asList(
+                    new Categoria("1", "Alimentación", "Gastos de comida"),
+                    new Categoria("2", "Transporte", "Gastos de transporte"),
+                    new Categoria("3", "Salud", "Gastos médicos"),
+                    new Categoria("4", "Entretenimiento", "Ocio y diversión"),
+                    new Categoria("5", "Educación", "Gastos educativos")
+            );
+            guardarCategorias(categorias);
+        }
+        return categorias;
+    }
+    // DataUtil.java
+
+    public static void agregarCategoria(Categoria categoria) {
+        List<Categoria> categorias = cargarCategorias();
+        categorias.add(categoria);
+        guardarCategorias(categorias);
+    }
+
+    public static void actualizarCategoria(Categoria categoriaActualizada) {
+        List<Categoria> categorias = cargarCategorias();
+        for (int i = 0; i < categorias.size(); i++) {
+            if (categorias.get(i).getId().equals(categoriaActualizada.getId())) {
+                categorias.set(i, categoriaActualizada);
+                break;
+            }
+        }
+        guardarCategorias(categorias);
+    }
+
+    public static void eliminarCategoria(String idCategoria) {
+        List<Categoria> categorias = cargarCategorias();
+        categorias.removeIf(c -> c.getId().equals(idCategoria));
+        guardarCategorias(categorias);
+
+        // Opcional: Eliminar la categoría de las transacciones existentes
+        List<Transaccion> transacciones = cargarTransacciones();
+        for (Transaccion t : transacciones) {
+            if (t.getCategoria() != null && t.getCategoria().getId().equals(idCategoria)) {
+                t.setCategoria(null);
+            }
+        }
+        guardarTransacciones(transacciones);
+    }
+
+    public static List<Categoria> listarCategorias() {
+        return cargarCategorias();
     }
 
     // Inicialización de datos quemados
@@ -88,15 +140,8 @@ public class DataUtil {
         File f = new File(ARCHIVO_USUARIOS);
         if (f.exists()) return; // Ya inicializado
 
-        // Categorías
-        List<Categoria> categorias = Arrays.asList(
-                new Categoria("1", "Alimentación", "Gastos de comida"),
-                new Categoria("2", "Transporte", "Gastos de transporte"),
-                new Categoria("3", "Salud", "Gastos médicos"),
-                new Categoria("4", "Entretenimiento", "Ocio y diversión"),
-                new Categoria("5", "Educación", "Gastos educativos")
-        );
-        guardarCategorias(categorias);
+        // Asegura que existan categorías y las carga
+        List<Categoria> categorias = cargarCategorias();
 
         List<Usuario> usuarios = new ArrayList<>();
         List<Cuenta> todasCuentas = new ArrayList<>();
@@ -199,15 +244,9 @@ public class DataUtil {
         return null;
     }
 
-    // Guardar transacciones: serializa solo los datos
-    public static void guardarTransacciones(List<Transaccion> transacciones) {
-        // Convierte a ArrayList antes de serializar
-        guardarLista(new java.util.ArrayList<>(transacciones), ARCHIVO_TRANSACCIONES);
-    }
-
     // Cargar transacciones: reconstruye el ObservableList
     public static ObservableList<Transaccion> cargarTransaccionesObservable() {
-        List<Transaccion> lista = cargarTransacciones(); // Este método debe devolver una List normal
+        List<Transaccion> lista = cargarTransacciones();
         return javafx.collections.FXCollections.observableArrayList(lista);
     }
 }

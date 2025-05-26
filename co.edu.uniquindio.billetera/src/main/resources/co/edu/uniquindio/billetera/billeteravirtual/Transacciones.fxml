@@ -24,7 +24,7 @@
                 <TableColumn fx:id="colMonto" prefWidth="120.0" text="Monto"/>
                 <TableColumn fx:id="colFecha" prefWidth="120.0" text="Fecha"/>
                 <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo"/>
-                <TableColumn fx:id="colCategoria" prefWidth="200.0" text="Categoría" cellValueFactory="{categoria}"/>
+                <TableColumn fx:id="colCategoria" text="Categoría" prefWidth="120.0"/>
             </columns>
         </TableView>
         <HBox layoutX="20.0" layoutY="270.0" spacing="10.0">

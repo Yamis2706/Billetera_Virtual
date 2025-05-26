@@ -98,7 +98,7 @@ public class LoginViewController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApp.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             stage.setScene(scene);
-            stage.setTitle("Billetera Virtual - Administrador");
+            stage.setTitle("Billetera Virtual");
         } catch (IOException e) {
             lblMensaje.setText("Error al cargar la ventana de administrador");
         }
