@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.CategoriaController">
+    <children>
+        <VBox spacing="10" alignment="TOP_CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
+            <children>
+                <Label text="Gestión de Categorías" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <TableView fx:id="tablaCategorias" prefHeight="200" prefWidth="400">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="100"/>
+                        <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+                        <TableColumn fx:id="colDescripcion" text="Descripción" prefWidth="150"/>
+                    </columns>
+                </TableView>
+                <HBox spacing="10" alignment="CENTER">
+                    <children>
+                        <Label text="Nombre:"/>
+                        <TextField fx:id="txtNombre" promptText="Nombre de la categoría" prefWidth="150"/>
+                        <Label text="Descripción:"/>
+                        <TextField fx:id="txtDescripcion" promptText="Descripción" prefWidth="200"/>
+                    </children>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER">
+                    <children>
+                        <Button text="Crear" onAction="#crearCategoria"/>
+                        <Button text="Actualizar" onAction="#actualizarCategoria"/>
+                        <Button text="Eliminar" onAction="#eliminarCategoria"/>
+                    </children>
+                </HBox>
+                <Label fx:id="lblMensaje" textFill="green"/>
+            </children>
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

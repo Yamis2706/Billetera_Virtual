@@ -82,22 +82,24 @@ public class DataUtil {
         guardarLista(categorias, ARCHIVO_CATEGORIAS);
     }
 
-    // Solo un método cargarCategorias, que garantiza categorías por defecto
+    // Método corregido: lista mutable por defecto
     public static List<Categoria> cargarCategorias() {
         List<Categoria> categorias = cargarLista(ARCHIVO_CATEGORIAS);
         if (categorias == null || categorias.isEmpty()) {
-            categorias = Arrays.asList(
+            categorias = new ArrayList<>(Arrays.asList(
                     new Categoria("1", "Alimentación", "Gastos de comida"),
                     new Categoria("2", "Transporte", "Gastos de transporte"),
                     new Categoria("3", "Salud", "Gastos médicos"),
                     new Categoria("4", "Entretenimiento", "Ocio y diversión"),
                     new Categoria("5", "Educación", "Gastos educativos")
-            );
+            ));
             guardarCategorias(categorias);
+        } else if (!(categorias instanceof ArrayList)) {
+            // Asegura que siempre sea mutable
+            categorias = new ArrayList<>(categorias);
         }
         return categorias;
     }
-    // DataUtil.java
 
     public static void agregarCategoria(Categoria categoria) {
         List<Categoria> categorias = cargarCategorias();

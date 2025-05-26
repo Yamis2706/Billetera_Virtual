@@ -5,64 +5,115 @@ import co.edu.uniquindio.billetera.billeteravirtual.utils.DataUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
-import java.util.UUID;
+import java.util.Comparator;
+import java.util.List;
 
 public class CategoriaController {
 
-    @FXML private TableView<Categoria> tablaCategorias;
-    @FXML private TableColumn<Categoria, String> colId;
-    @FXML private TableColumn<Categoria, String> colNombre;
-    @FXML private TableColumn<Categoria, String> colDescripcion;
-    @FXML private TextField txtId, txtNombre, txtDescripcion;
-    @FXML private Label lblMensaje;
+    @FXML
+    private TableView<Categoria> tablaCategorias;
+    @FXML
+    private TableColumn<Categoria, String> colId;
+    @FXML
+    private TableColumn<Categoria, String> colNombre;
+    @FXML
+    private TableColumn<Categoria, String> colDescripcion;
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    private TextField txtDescripcion;
+    @FXML
+    private Label lblMensaje;
 
-    private ObservableList<Categoria> listaCategorias;
+    private final ObservableList<Categoria> listaCategorias = FXCollections.observableArrayList();
+    private Categoria categoriaSeleccionada = null;
+    private int contadorId = 1;
 
     @FXML
     public void initialize() {
-        listaCategorias = FXCollections.observableArrayList(DataUtil.listarCategorias());
-        tablaCategorias.setItems(listaCategorias);
+        // Cargar categorías desde DataUtil
+        List<Categoria> categorias = DataUtil.listarCategorias();
+        listaCategorias.setAll(categorias);
+
+        // Ajustar contadorId para evitar duplicados
+        categorias.stream()
+                .mapToInt(c -> {
+                    try { return Integer.parseInt(c.getId()); } catch (Exception e) { return 0; }
+                })
+                .max().ifPresent(maxId -> contadorId = maxId + 1);
 
         colId.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getId()));
         colNombre.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNombre()));
         colDescripcion.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDescripcion()));
+        tablaCategorias.setItems(listaCategorias);
+
+        tablaCategorias.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            if (newSel != null) {
+                categoriaSeleccionada = newSel;
+                txtNombre.setText(newSel.getNombre());
+                txtDescripcion.setText(newSel.getDescripcion());
+            }
+        });
     }
 
     @FXML
     private void crearCategoria() {
-        String id = UUID.randomUUID().toString().substring(0, 5);
-        String nombre = txtNombre.getText();
-        String descripcion = txtDescripcion.getText();
+        String nombre = txtNombre.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
+        if (nombre.isEmpty() || descripcion.isEmpty()) {
+            mostrarMensaje("Debe ingresar nombre y descripción.", false);
+            return;
+        }
+        String id = String.valueOf(contadorId++);
         Categoria nueva = new Categoria(id, nombre, descripcion);
         DataUtil.agregarCategoria(nueva);
-        listaCategorias.add(nueva);
-        lblMensaje.setText("Categoría creada.");
+        listaCategorias.setAll(DataUtil.listarCategorias());
+        limpiarCampos();
+        mostrarMensaje("Categoría creada exitosamente.", true);
     }
 
     @FXML
     private void actualizarCategoria() {
-        Categoria seleccionada = tablaCategorias.getSelectionModel().getSelectedItem();
-        if (seleccionada != null) {
-            seleccionada.setNombre(txtNombre.getText());
-            seleccionada.setDescripcion(txtDescripcion.getText());
-            DataUtil.actualizarCategoria(seleccionada);
-            tablaCategorias.refresh();
-            lblMensaje.setText("Categoría actualizada.");
+        if (categoriaSeleccionada == null) {
+            mostrarMensaje("Seleccione una categoría para actualizar.", false);
+            return;
         }
+        String nombre = txtNombre.getText().trim();
+        String descripcion = txtDescripcion.getText().trim();
+        if (nombre.isEmpty() || descripcion.isEmpty()) {
+            mostrarMensaje("Debe ingresar nombre y descripción.", false);
+            return;
+        }
+        Categoria actualizada = new Categoria(categoriaSeleccionada.getId(), nombre, descripcion);
+        DataUtil.actualizarCategoria(actualizada);
+        listaCategorias.setAll(DataUtil.listarCategorias());
+        limpiarCampos();
+        mostrarMensaje("Categoría actualizada con éxito.", true);
     }
 
     @FXML
     private void eliminarCategoria() {
-        Categoria seleccionada = tablaCategorias.getSelectionModel().getSelectedItem();
-        if (seleccionada != null) {
-            DataUtil.eliminarCategoria(seleccionada.getId());
-            listaCategorias.remove(seleccionada);
-            lblMensaje.setText("Categoría eliminada.");
+        if (categoriaSeleccionada == null) {
+            mostrarMensaje("Seleccione una categoría para eliminar.", false);
+            return;
         }
+        DataUtil.eliminarCategoria(categoriaSeleccionada.getId());
+        listaCategorias.setAll(DataUtil.listarCategorias());
+        limpiarCampos();
+        mostrarMensaje("Categoría eliminada.", true);
+    }
+
+    private void limpiarCampos() {
+        txtNombre.clear();
+        txtDescripcion.clear();
+        categoriaSeleccionada = null;
+        tablaCategorias.getSelectionModel().clearSelection();
+    }
+
+    private void mostrarMensaje(String mensaje, boolean exito) {
+        lblMensaje.setText(mensaje);
+        lblMensaje.setTextFill(exito ? javafx.scene.paint.Color.GREEN : javafx.scene.paint.Color.RED);
     }
 }
