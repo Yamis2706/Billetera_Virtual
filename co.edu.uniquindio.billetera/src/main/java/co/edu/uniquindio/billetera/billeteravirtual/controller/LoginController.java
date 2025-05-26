@@ -16,7 +16,7 @@ public class LoginController {
     private void handleIngresar(ActionEvent event) {
         System.out.println("Intentando cargar BilleteraVirtualApp.fxml");
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billetera/billeteravirtual/controller/BilleteraVirtualApp.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApp.fxml"));
             if (fxmlLoader.getLocation() == null) {
                 System.out.println("No se encontró BilleteraVirtualApp.fxml en la ruta especificada.");
                 return;
@@ -36,3 +36,4 @@ public class LoginController {
         }
     }
 }
+

@@ -12,8 +12,9 @@
         <HBox layoutX="20.0" layoutY="10.0" spacing="10.0">
             <children>
                 <Label text="ID Transacción:"/>
-                <TextField fx:id="txtIdTransaccion" promptText="ID Transacción" prefWidth="200.0" editable="false"/>
+                <TextField fx:id="txtIdTransaccion" promptText="ID Transacción" prefWidth="200.0" editable="true"/>
                 <Button fx:id="btnBuscarId" text="Buscar" onAction="#buscarTransaccionPorId"/>
+                <Button fx:id="btnLimpiarBusqueda" text="Limpiar" onAction="#limpiarBusqueda"/>
             </children>
         </HBox>
         <TableView fx:id="tablaTransacciones" layoutX="20.0" layoutY="50.0" prefHeight="200.0" prefWidth="860.0">
@@ -23,7 +24,7 @@
                 <TableColumn fx:id="colMonto" prefWidth="120.0" text="Monto"/>
                 <TableColumn fx:id="colFecha" prefWidth="120.0" text="Fecha"/>
                 <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo"/>
-                <TableColumn fx:id="colCategoria" prefWidth="200.0" text="Categoría"/>
+                <TableColumn fx:id="colCategoria" prefWidth="200.0" text="Categoría" cellValueFactory="{categoria}"/>
             </columns>
         </TableView>
         <HBox layoutX="20.0" layoutY="270.0" spacing="10.0">
@@ -51,3 +52,4 @@
         <Label fx:id="lblMensaje" layoutX="20.0" layoutY="410.0" textFill="red"/>
     </children>
 </AnchorPane>
+

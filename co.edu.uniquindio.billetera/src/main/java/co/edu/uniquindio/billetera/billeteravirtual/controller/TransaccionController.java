@@ -169,6 +169,13 @@ public class TransaccionController {
         }
     }
 
+    @FXML
+    private void limpiarBusqueda() {
+        txtIdTransaccion.clear();
+        tablaTransacciones.setItems(listaTransacciones);
+        lblMensaje.setText("");
+    }
+
     private void limpiarCampos() {
         txtIdTransaccion.clear();
         txtDescripcion.clear();
@@ -179,3 +186,4 @@ public class TransaccionController {
         tablaTransacciones.getSelectionModel().clearSelection();
     }
 }
+
