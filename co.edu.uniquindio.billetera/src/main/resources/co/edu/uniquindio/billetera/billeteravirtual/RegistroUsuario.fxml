@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billetera.billeteravirtual.viewController.RegistroUsuarioViewController">
+    <children>
+        <VBox alignment="CENTER" spacing="10.0" layoutX="50.0" layoutY="20.0" prefWidth="300.0" prefHeight="360.0">
+            <children>
+                <Label text="Registro de Usuario" style="-fx-font-size: 20px;"/>
+                <TextField fx:id="txtNombre" promptText="Nombre"/>
+                <TextField fx:id="txtCedula" promptText="Cédula"/>
+                <TextField fx:id="txtCorreo" promptText="Correo"/>
+                <TextField fx:id="txtTelefono" promptText="Teléfono"/>
+                <TextField fx:id="txtDireccion" promptText="Dirección"/>
+                <PasswordField fx:id="txtClave" promptText="Clave"/>
+                <Button text="Registrar" onAction="#onRegistrar"/>
+                <Label fx:id="lblMensaje" textFill="red"/>
+            </children>
+            <padding>
+                <Insets top="20" left="20" right="20" bottom="20"/>
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

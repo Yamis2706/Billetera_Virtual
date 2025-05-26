@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.AdministradorController"
+            prefWidth="900" prefHeight="600">
+    <children>
+        <TableView fx:id="tablaUsuarios" layoutX="20" layoutY="20" prefWidth="600" prefHeight="400">
+            <columns>
+                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="100"/>
+                <TableColumn fx:id="colCorreo" text="Correo" prefWidth="150"/>
+                <TableColumn fx:id="colCedula" text="Cédula" prefWidth="100"/>
+                <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="100"/>
+                <TableColumn fx:id="colDireccion" text="Dirección" prefWidth="150"/>
+            </columns>
+        </TableView>
+        <Button fx:id="btnAgregar" text="Agregar" layoutX="650" layoutY="50" onAction="#agregarUsuario"/>
+        <Button fx:id="btnEditar" text="Editar" layoutX="650" layoutY="100" onAction="#editarUsuario"/>
+        <Button fx:id="btnEliminar" text="Eliminar" layoutX="650" layoutY="150" onAction="#eliminarUsuario"/>
+        <Label fx:id="lblMensaje" layoutX="20" layoutY="430" textFill="red"/>
+        <Label text="Total de usuarios:" layoutX="650" layoutY="250"/>
+        <Label fx:id="lblTotalUsuarios" layoutX="770" layoutY="250"/>
+    </children>
+</AnchorPane>

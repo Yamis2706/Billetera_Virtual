@@ -1,3 +1,4 @@
+
 package co.edu.uniquindio.billetera.billeteravirtual.patrones.estructurales.facade;
 
 import co.edu.uniquindio.billetera.billeteravirtual.model.Usuario;
@@ -12,12 +13,12 @@ public class BilleteraFacade {
 
     public void registrarUsuario(Usuario usuario) {
         usuarios.add(usuario);
-        System.out.println("Usuario registrado: " + usuario.getNombreCompleto());
+        System.out.println("Usuario registrado: " + usuario.getNombre());
     }
 
     public void agregarCuentaAUsuario(Usuario usuario, Cuenta cuenta) {
         usuario.getCuentas().add(cuenta);
-        System.out.println("Cuenta agregada a usuario: " + usuario.getNombreCompleto());
+        System.out.println("Cuenta agregada a usuario: " + usuario.getNombre());
     }
 
     public void ejecutarTransaccion(Transaccion transaccion) {
@@ -25,7 +26,6 @@ public class BilleteraFacade {
         transacciones.add(transaccion);
         System.out.println("Transacción ejecutada: " + transaccion.getIdTransaccion());
     }
-
 
     public void depositar(Cuenta cuenta, double monto) {
         cuenta.depositar(monto);

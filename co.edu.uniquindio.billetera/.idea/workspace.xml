@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfb8ed30-1691-424b-a9ce-9ff7558afa72" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/AdministradorController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/viewController/LoginViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/viewController/RegistroUsuarioViewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Login.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/RegistroUsuario.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/UsuariosAdmin.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/facade/BilleteraFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/facade/BilleteraFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/utils/DataUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/utils/DataUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApp.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Usuario.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Usuario.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +30,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -125,7 +134,7 @@
       <option name="presentableId" value="Default" />
       <updated>1748206160745</updated>
       <workItem from="1748206161704" duration="17052000" />
-      <workItem from="1748225766525" duration="2227000" />
+      <workItem from="1748225766525" duration="10316000" />
     </task>
     <servers />
   </component>
