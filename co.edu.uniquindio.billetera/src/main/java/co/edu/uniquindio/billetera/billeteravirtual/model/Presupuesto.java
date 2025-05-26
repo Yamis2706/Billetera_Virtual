@@ -1,29 +1,30 @@
 package co.edu.uniquindio.billetera.billeteravirtual.model;
 
-public class Presupuesto {
-    private String idPresupuesto;
-    private String nombre;
-    private double montoAsignado;
-    private double montoGastado;
-    private Categoria categoria;
+import java.io.Serializable;
+import java.time.LocalDate;
 
-    public Presupuesto(String idPresupuesto, String nombre, double montoAsignado, double montoGastado, Categoria categoria) {
-        this.idPresupuesto = idPresupuesto;
+public class Presupuesto implements Serializable {
+    private String nombre;
+    private double monto;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+
+    public Presupuesto(String nombre, double monto, LocalDate fechaInicio, LocalDate fechaFin) {
         this.nombre = nombre;
-        this.montoAsignado = montoAsignado;
-        this.montoGastado = montoGastado;
-        this.categoria = categoria;
+        this.monto = monto;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
     }
 
-    // Getters y setters
-    public String getIdPresupuesto() { return idPresupuesto; }
-    public void setIdPresupuesto(String idPresupuesto) { this.idPresupuesto = idPresupuesto; }
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
-    public double getMontoAsignado() { return montoAsignado; }
-    public void setMontoAsignado(double montoAsignado) { this.montoAsignado = montoAsignado; }
-    public double getMontoGastado() { return montoGastado; }
-    public void setMontoGastado(double montoGastado) { this.montoGastado = montoGastado; }
-    public Categoria getCategoria() { return categoria; }
-    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+
+    public double getMonto() { return monto; }
+    public void setMonto(double monto) { this.monto = monto; }
+
+    public LocalDate getFechaInicio() { return fechaInicio; }
+    public void setFechaInicio(LocalDate fechaInicio) { this.fechaInicio = fechaInicio; }
+
+    public LocalDate getFechaFin() { return fechaFin; }
+    public void setFechaFin(LocalDate fechaFin) { this.fechaFin = fechaFin; }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="900.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.TransaccionController">
+    <children>
+        <HBox layoutX="20.0" layoutY="10.0" spacing="10.0">
+            <children>
+                <Label text="ID Transacción:"/>
+                <TextField fx:id="txtIdTransaccion" promptText="ID Transacción" prefWidth="200.0" editable="false"/>
+                <Button fx:id="btnBuscarId" text="Buscar" onAction="#buscarTransaccionPorId"/>
+            </children>
+        </HBox>
+        <TableView fx:id="tablaTransacciones" layoutX="20.0" layoutY="50.0" prefHeight="200.0" prefWidth="860.0">
+            <columns>
+                <TableColumn fx:id="colIdTransaccion" prefWidth="120.0" text="ID"/>
+                <TableColumn fx:id="colDescripcion" prefWidth="200.0" text="Descripción"/>
+                <TableColumn fx:id="colMonto" prefWidth="120.0" text="Monto"/>
+                <TableColumn fx:id="colFecha" prefWidth="120.0" text="Fecha"/>
+                <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo"/>
+                <TableColumn fx:id="colCategoria" prefWidth="200.0" text="Categoría"/>
+            </columns>
+        </TableView>
+        <HBox layoutX="20.0" layoutY="270.0" spacing="10.0">
+            <children>
+                <TextField fx:id="txtDescripcion" promptText="Descripción" prefWidth="180.0"/>
+                <TextField fx:id="txtMonto" promptText="Monto" prefWidth="100.0"/>
+                <DatePicker fx:id="dpFecha" promptText="Fecha"/>
+                <ComboBox fx:id="cbTipo" promptText="Tipo" prefWidth="120.0"/>
+                <ComboBox fx:id="cbCategoria" promptText="Categoría" prefWidth="150.0"/>
+            </children>
+        </HBox>
+        <HBox layoutX="20.0" layoutY="320.0" spacing="10.0">
+            <children>
+                <Button fx:id="btnCrear" text="Crear" onAction="#crearTransaccion"/>
+                <Button fx:id="btnEliminar" text="Eliminar" onAction="#eliminarTransaccion"/>
+            </children>
+        </HBox>
+        <HBox layoutX="20.0" layoutY="370.0" spacing="10.0">
+            <children>
+                <Label text="Filtrar por categoría:"/>
+                <ComboBox fx:id="cbFiltroCategoria" promptText="Categoría" prefWidth="150.0"/>
+                <Button fx:id="btnFiltrar" text="Filtrar" onAction="#filtrarPorCategoria"/>
+            </children>
+        </HBox>
+        <Label fx:id="lblMensaje" layoutX="20.0" layoutY="410.0" textFill="red"/>
+    </children>
+</AnchorPane>

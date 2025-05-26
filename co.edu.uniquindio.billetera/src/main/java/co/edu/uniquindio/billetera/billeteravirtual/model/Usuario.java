@@ -20,10 +20,35 @@ public class Usuario implements Sujeto, Serializable {
     private final List<Observer> observadores = new ArrayList<>();
 
     private List<Cuenta> cuentas = new ArrayList<>();
+    private List<Transaccion> transacciones = new ArrayList<>();
+    private List<Presupuesto> presupuestos = new ArrayList<>();
 
     // Getter para cuentas
     public List<Cuenta> getCuentas() {
         return cuentas;
+    }
+
+    // Getter para transacciones
+    public List<Transaccion> getTransacciones() {
+        return transacciones;
+    }
+
+    // Getter para presupuestos
+    public List<Presupuesto> getPresupuestos() {
+        return presupuestos;
+    }
+
+    // Setters agregados
+    public void setCuentas(List<Cuenta> cuentas) {
+        this.cuentas = cuentas;
+    }
+
+    public void setTransacciones(List<Transaccion> transacciones) {
+        this.transacciones = transacciones;
+    }
+
+    public void setPresupuestos(List<Presupuesto> presupuestos) {
+        this.presupuestos = presupuestos;
     }
 
     // Implementación del método de Sujeto

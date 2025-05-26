@@ -14,8 +14,8 @@
                 <Label text="Iniciar Sesión" style="-fx-font-size: 20px;"/>
                 <HBox spacing="10">
                     <children>
-                        <RadioButton fx:id="rbUsuario" text="Usuario" toggleGroup="$tipoIngreso" onAction="#onSeleccionarTipo"/>
-                        <RadioButton fx:id="rbAdmin" text="Administrador" toggleGroup="$tipoIngreso" onAction="#onSeleccionarTipo"/>
+                        <RadioButton fx:id="rbUsuario" text="Usuario" onAction="#onSeleccionarTipo"/>
+                        <RadioButton fx:id="rbAdmin" text="Administrador" onAction="#onSeleccionarTipo"/>
                     </children>
                 </HBox>
                 <TextField fx:id="txtCorreo" promptText="Correo" visible="false"/>

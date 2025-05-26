@@ -1,9 +1,12 @@
 package co.edu.uniquindio.billetera.billeteravirtual.model;
 
 import co.edu.uniquindio.billetera.billeteravirtual.patrones.comportamiento.strategy.TransaccionStrategy;
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Transaccion {
+public class Transaccion implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String idTransaccion;
     private LocalDate fecha;
     private String tipo; // Depósito, Retiro, Transferencia
@@ -12,8 +15,11 @@ public class Transaccion {
     private Cuenta cuentaOrigen;
     private Cuenta cuentaDestino;
     private Categoria categoria;
-    private TransaccionStrategy estrategia;
+    private transient TransaccionStrategy estrategia;
 
+    /**
+     * Constructor de Transaccion.
+     */
     public Transaccion(String idTransaccion, LocalDate fecha, String tipo, double monto, String descripcion,
                        Cuenta cuentaOrigen, Cuenta cuentaDestino, Categoria categoria, TransaccionStrategy estrategia) {
         this.idTransaccion = idTransaccion;
@@ -51,5 +57,17 @@ public class Transaccion {
         if (estrategia != null) {
             estrategia.ejecutarTransaccion(monto);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Transaccion{" +
+                "idTransaccion='" + idTransaccion + '\'' +
+                ", fecha=" + fecha +
+                ", tipo='" + tipo + '\'' +
+                ", monto=" + monto +
+                ", descripcion='" + descripcion + '\'' +
+                ", categoria=" + (categoria != null ? categoria.getNombre() : "Sin categoría") +
+                '}';
     }
 }

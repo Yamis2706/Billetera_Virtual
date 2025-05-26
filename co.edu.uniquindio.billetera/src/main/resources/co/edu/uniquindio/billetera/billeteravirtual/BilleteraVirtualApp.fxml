@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="702.0" prefWidth="987.0"
+<AnchorPane prefHeight="650.0" prefWidth="750.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.billetera.billeteravirtual.BilleteraVirtualApplication">
@@ -14,17 +14,33 @@
             <tabs>
                 <Tab text="Transacciones">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <fx:include source="Transacciones.fxml"/>
+                            </children>
+                        </AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Presupuesto">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <fx:include source="Presupuesto.fxml"/>
+                            </children>
+                        </AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Cuentas">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <SplitPane layoutX="14.0" layoutY="7.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="931.0">
+                                    <items>
+                                        <fx:include source="Cuentas.fxml" />
+                                    </items>
+                                </SplitPane>
+                            </children>
+                        </AnchorPane>
                     </content>
                 </Tab>
                 <Tab text="Categorías">
@@ -37,13 +53,14 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
-                <Tab text="Usuarios">
+                <Tab text="UsuariosAdmin">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
                                 <SplitPane layoutX="14.0" layoutY="7.0" orientation="VERTICAL" prefHeight="621.0" prefWidth="931.0">
                                     <items>
-                                        <fx:include source="Usuario.fxml" />
+                                        <fx:include
+                                                source="UsuariosAdmin.fxml" />
                                     </items>
                                 </SplitPane>
                             </children>

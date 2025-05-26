@@ -1,4 +1,3 @@
-
 package co.edu.uniquindio.billetera.billeteravirtual.patrones.estructurales.facade;
 
 import co.edu.uniquindio.billetera.billeteravirtual.model.Usuario;
@@ -28,11 +27,11 @@ public class BilleteraFacade {
     }
 
     public void depositar(Cuenta cuenta, double monto) {
-        cuenta.depositar(monto);
+        cuenta.depositarDinero(monto);
     }
 
     public void retirar(Cuenta cuenta, double monto) {
-        cuenta.retirar(monto);
+        cuenta.retirarDinero(monto);
     }
 
     public List<Usuario> getUsuarios() {

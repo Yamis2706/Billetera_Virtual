@@ -24,6 +24,7 @@ public class LoginViewController {
 
     @FXML
     public void initialize() {
+        // Asignar los RadioButton al ToggleGroup para que sean excluyentes
         tipoIngreso = new ToggleGroup();
         rbUsuario.setToggleGroup(tipoIngreso);
         rbAdmin.setToggleGroup(tipoIngreso);
@@ -79,7 +80,10 @@ public class LoginViewController {
     private void abrirVentanaUsuario() {
         try {
             Stage stage = (Stage) txtCorreo.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/billetera/billeteravirtual/Usuario.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(
+                    "/co/edu/uniquindio/billetera/billeteravirtual" +
+                            "/BilleteraVirtualApp" +
+                            ".fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 824, 589);
             stage.setScene(scene);
             stage.setTitle("Usuario - Billetera Virtual");

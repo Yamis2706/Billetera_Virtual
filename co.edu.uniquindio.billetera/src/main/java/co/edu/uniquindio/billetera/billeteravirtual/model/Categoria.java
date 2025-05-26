@@ -1,6 +1,8 @@
 package co.edu.uniquindio.billetera.billeteravirtual.model;
 
-public class Categoria {
+import java.io.Serializable;
+
+public class Categoria implements Serializable {
     private String idCategoria;
     private String nombre;
     private String descripcion;
@@ -18,4 +20,9 @@ public class Categoria {
     public void setNombre(String nombre) { this.nombre = nombre; }
     public String getDescripcion() { return descripcion; }
     public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

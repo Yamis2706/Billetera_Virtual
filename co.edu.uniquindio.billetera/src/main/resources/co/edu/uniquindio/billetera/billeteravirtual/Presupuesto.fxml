@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.PresupuestoController">
+    <children>
+        <TableView fx:id="tablaPresupuestos" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="760.0">
+            <columns>
+                <TableColumn fx:id="colNombre" prefWidth="200.0" text="Nombre"/>
+                <TableColumn fx:id="colMonto" prefWidth="150.0" text="Monto"/>
+                <TableColumn fx:id="colInicio" prefWidth="150.0" text="Inicio"/>
+                <TableColumn fx:id="colFin" prefWidth="150.0" text="Fin"/>
+            </columns>
+        </TableView>
+        <HBox layoutX="20.0" layoutY="240.0" spacing="10.0">
+            <children>
+                <TextField fx:id="txtNombre" promptText="Nombre" prefWidth="150.0"/>
+                <TextField fx:id="txtMonto" promptText="Monto" prefWidth="100.0"/>
+                <DatePicker fx:id="dpInicio" promptText="Inicio"/>
+                <DatePicker fx:id="dpFin" promptText="Fin"/>
+            </children>
+        </HBox>
+        <HBox layoutX="20.0" layoutY="290.0" spacing="10.0">
+            <children>
+                <Button fx:id="btnCrear" text="Crear" onAction="#crearPresupuesto"/>
+                <Button fx:id="btnModificar" text="Modificar" onAction="#modificarPresupuesto"/>
+                <Button fx:id="btnEliminar" text="Eliminar" onAction="#eliminarPresupuesto"/>
+            </children>
+        </HBox>
+        <Label fx:id="lblMensaje" layoutX="20.0" layoutY="340.0" textFill="red"/>
+    </children>
+</AnchorPane>

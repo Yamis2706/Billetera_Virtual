@@ -13,6 +13,6 @@ public class DepositarCommand implements Command {
 
     @Override
     public void ejecutar() {
-        cuenta.depositar(monto);
+        cuenta.depositarDinero(monto);
     }
 }

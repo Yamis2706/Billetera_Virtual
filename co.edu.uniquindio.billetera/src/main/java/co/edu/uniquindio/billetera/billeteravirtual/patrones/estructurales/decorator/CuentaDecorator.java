@@ -6,18 +6,18 @@ public abstract class CuentaDecorator extends Cuenta {
     protected final Cuenta cuenta;
 
     public CuentaDecorator(Cuenta cuenta) {
-        super(cuenta.getIdCuenta(), cuenta.getBanco(), cuenta.getNumeroCuenta(), cuenta.getTipoCuenta());
+        super(cuenta.getIdCuenta(), cuenta.getBanco(), cuenta.getNumero(), cuenta.getTipo());
         this.cuenta = cuenta;
     }
 
     @Override
-    public void depositar(double monto) {
-        cuenta.depositar(monto);
+    public void depositarDinero(double monto) {
+        cuenta.depositarDinero(monto);
     }
 
     @Override
-    public void retirar(double monto) {
-        cuenta.retirar(monto);
+    public void retirarDinero(double monto) {
+        cuenta.retirarDinero(monto);
     }
 
     @Override
