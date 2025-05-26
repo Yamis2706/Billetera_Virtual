@@ -1,26 +1,14 @@
-module co.edu.uniquindio.billeteravirtual.billeteravirtual {
+module co.edu.uniquindio.billetera.billeteravirtual {
     requires javafx.controls;
     requires javafx.fxml;
 
-    requires org.controlsfx.controls;
-    requires javafx.base;
-
-    requires javafx.graphics;
-
-
-    requires java.desktop;
+    exports co.edu.uniquindio.billetera.billeteravirtual;
+    exports co.edu.uniquindio.billetera.billeteravirtual.controller;
+    exports co.edu.uniquindio.billetera.billeteravirtual.viewController;
+    // exports co.edu.uniquindio.billetera.billeteravirtual.viewController.usuario.cuentas; // Elimina o comenta si no existe
 
     opens co.edu.uniquindio.billetera.billeteravirtual to javafx.fxml;
-    exports co.edu.uniquindio.billetera.billeteravirtual;
-    exports co.edu.uniquindio.billetera.billeteravirtual.model;
-    opens co.edu.uniquindio.billetera.billeteravirtual.viewController.usuario to javafx.fxml;
-
-    opens co.edu.uniquindio.billetera.billeteravirtual.viewController;
-    exports co.edu.uniquindio.billetera.billeteravirtual.viewController;
-
-    opens co.edu.uniquindio.billetera.billeteravirtual.controller;
-    exports co.edu.uniquindio.billetera.billeteravirtual.controller;
-
-    opens co.edu.uniquindio.billetera.billeteravirtual.viewController.usuario.cuentas to javafx.fxml;
-    opens co.edu.uniquindio.billetera.billeteravirtual.model to javafx.base, javafx.fxml;
+    opens co.edu.uniquindio.billetera.billeteravirtual.controller to javafx.fxml;
+    opens co.edu.uniquindio.billetera.billeteravirtual.viewController to javafx.fxml;
+    // opens co.edu.uniquindio.billetera.billeteravirtual.viewController.usuario.cuentas to javafx.fxml; // Elimina o comenta si no existe
 }

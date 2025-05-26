@@ -16,7 +16,7 @@
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.billetera.billeteravirtual.viewController.UsuarioViewController">
     <children>
-        <SplitPane orientation="VERTICAL">
+        <SplitPane orientation="VERTICAL" dividerPositions="0.4370567375886525">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="800.0">
                     <children>
@@ -62,9 +62,6 @@
                     </children>
                 </AnchorPane>
             </items>
-            <dividerPositions>
-                <Double fx:value="0.4370567375886525" />
-            </dividerPositions>
         </SplitPane>
     </children>
 </AnchorPane>
