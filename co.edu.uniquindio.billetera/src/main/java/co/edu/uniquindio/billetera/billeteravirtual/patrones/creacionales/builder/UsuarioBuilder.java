@@ -1,6 +1,6 @@
 package co.edu.uniquindio.billetera.billeteravirtual.patrones.creacionales.builder;
 
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.model.Usuario;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Usuario;
 
 public class UsuarioBuilder {
     protected String nombre;
@@ -11,30 +11,36 @@ public class UsuarioBuilder {
 
     public UsuarioBuilder nombre(String nombre) {
         this.nombre = nombre;
-        return this; // Devuelve la instancia actual de UsuarioBuilder
+        return this;
     }
 
     public UsuarioBuilder cedula(String cedula) {
         this.cedula = cedula;
-        return this; // Devuelve la instancia actual de UsuarioBuilder
+        return this;
     }
 
     public UsuarioBuilder correo(String correo) {
         this.correo = correo;
-        return this; // Devuelve la instancia actual de UsuarioBuilder
+        return this;
     }
 
     public UsuarioBuilder telefono(String telefono) {
         this.telefono = telefono;
-        return this; // Devuelve la instancia actual de UsuarioBuilder
+        return this;
     }
 
     public UsuarioBuilder direccion(String direccion) {
         this.direccion = direccion;
-        return this; // Devuelve la instancia actual de UsuarioBuilder
+        return this;
     }
 
     public Usuario build() {
-        return new Usuario(nombre, cedula, correo, telefono, direccion);
+        return Usuario.builder()
+                .nombre(nombre)
+                .cedula(cedula)
+                .correo(correo)
+                .telefono(telefono)
+                .direccion(direccion)
+                .build();
     }
 }

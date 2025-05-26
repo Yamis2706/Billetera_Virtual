@@ -1,6 +1,7 @@
 package co.edu.uniquindio.billetera.billeteravirtual.utils;
 
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.model.Usuario;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Usuario;
+import co.edu.uniquindio.billetera.billeteravirtual.model.BilleteraVirtualObjeto;
 
 public class DataUtil {
 

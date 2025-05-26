@@ -5,7 +5,10 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="702.0" prefWidth="987.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.billeteravirtual.billetera_virtual.viewController.BilleteraVirtualAppController">
+<AnchorPane prefHeight="702.0" prefWidth="987.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uniquindio.billetera.billeteravirtual.BilleteraVirtualApplication">
     <children>
         <TabPane layoutX="14.0" layoutY="14.0" prefHeight="676.0" prefWidth="964.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>

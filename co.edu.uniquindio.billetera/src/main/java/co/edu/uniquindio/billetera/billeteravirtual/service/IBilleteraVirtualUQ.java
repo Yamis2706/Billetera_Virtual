@@ -1,9 +1,9 @@
 package co.edu.uniquindio.billetera.billeteravirtual.service;
 
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.model.Administrador;
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.model.Presupuesto;
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.model.Transaccion;
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.model.Usuario;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Administrador;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Presupuesto;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Transaccion;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Usuario;
 import java.util.Date;
 import java.util.List;
 
@@ -19,23 +19,15 @@ public interface IBilleteraVirtualUQ {
     boolean crearObjeto(String idObjeto, String descripcion);
     Presupuesto obtenerPresupuesto(String idPresupuesto);
     Administrador obtenerAdministrador(String cedulaAdministrador);
-    boolean crearTransaccion(String idTransaccion);
-    Date fecha,
-    String tipoTransaccion,
-    float monto,
-    String descripcion,
-    String cuentaOrigen,
-    String cuentaDestino,
-    String categoria);
+
+    boolean crearTransaccion(String idTransaccion, Date fecha, String tipoTransaccion, float monto,
+                             String descripcion, String cuentaOrigen, String cuentaDestino, String categoria);
 
     boolean eliminarTransaccion(String idTransaccion);
 
-    boolean actualizarTransaccion(String idTransaccionActual, String idTransaccion,  Date fecha,
-                                  String tipoTransaccion,
-                                  float monto,
-                                  String descripcion,
-                                  String cuentaOrigen,
-                                  String cuentaDestino, String categoria);
+    boolean actualizarTransaccion(String idTransaccionActual, String idTransaccion, Date fecha,
+                                  String tipoTransaccion, float monto, String descripcion,
+                                  String cuentaOrigen, String cuentaDestino, String categoria);
 
     Transaccion obtenerTransaccion(String idTransaccion);
 }

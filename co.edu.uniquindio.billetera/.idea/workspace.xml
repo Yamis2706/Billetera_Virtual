@@ -1,4 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PropertiesComponent">{}</component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cfb8ed30-1691-424b-a9ce-9ff7558afa72" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/BilleteraVirtualObjeto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/command/DepositarCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/command/EjecutarTransaccionCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/command/InvocadorTransaccion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/observer/NotificacionUsuario.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/strategy/DepositoStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/strategy/RetiroStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/strategy/TransaccionStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/strategy/TransferenciaStrategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/AhorrosFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/BilleteraAbstractFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/CorrienteFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/CuentaCorriente.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/ModelFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/Tarjeta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/TarjetaCredito.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/TarjetaDebito.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/adapter/SistemaPagoExternoAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/decorator/AlertaSaldoDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/decorator/TransaccionDecorator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/service/UsuarioService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/UsuarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/UsuarioController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/mapping/dto/UsuarioDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/mapping/dto/UsuarioDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/mapping/mappers/BilleteraVirtualMappingImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/mapping/mappers/BilleteraVirtualMappingImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Categoria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Categoria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Cuenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Cuenta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Presupuesto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Presupuesto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Transaccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Transaccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/command/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/command/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/mediator/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/observer/Observer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/observer/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/observer/Sujeto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/comportamiento/strategy/ValidacionStrategy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/CuentaAhorros.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/builder/UsuarioBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/builder/UsuarioBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/factoryMethod/ModelFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/prototype/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/abstractFactory/Cuenta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/singleton/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/creacionales/singleton/Configuracion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/adapter/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/adapter/SistemaPagoExterno.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/bridge/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/adapter/PasarelaPago.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/composite/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/decorator/CuentaDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/decorator/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/decorator/NotificacionTransaccionDecorator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/facade/Prueba.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/facade/BilleteraFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/service/IBilleteraVirtualMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/mapping/mappers/IBilleteraVirtualMapping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/service/IBilleteraVirtualUQ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/service/IBilleteraVirtualUQ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/service/IModelFactoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/service/IModelFactoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/utils/DataUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/utils/DataUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/viewController/UsuarioViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/viewController/UsuarioViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApp.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Usuario.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Usuario.fxml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7
+}]]></component>
+  <component name="ProjectId" id="2xbUEm7bXBpLTSQ844GMxjv9H0d" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.BilleteraVirtualApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Dev__Fabian",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/DELL/Documents/Programación II/Billetera_Virtual/co.edu.uniquindio.billetera/src/main/java/co/edu/uniquindio/billetera/billeteravirtual",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\DELL\Documents\Programación II\Billetera_Virtual\co.edu.uniquindio.billetera\src\main\java\co\edu\uniquindio\billetera\billeteravirtual" />
+      <recent name="C:\Users\DELL\Documents\Programación II\Billetera_Virtual\co.edu.uniquindio.billetera\src\main\resources\co\edu\uniquindio\billetera\billeteravirtual" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="BilleteraVirtualApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="co.edu.uniquindio.billetera.billeteravirtual.BilleteraVirtualApplication" />
+      <module name="billeteraVirtual" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="co.edu.uniquindio.billetera.billeteravirtual.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="co.edu.uniquindio.billetera" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="co.edu.uniquindio.billetera" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.BilleteraVirtualApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cfb8ed30-1691-424b-a9ce-9ff7558afa72" name="Changes" comment="" />
+      <created>1748206160745</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748206160745</updated>
+      <workItem from="1748206161704" duration="12016000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
 </project>

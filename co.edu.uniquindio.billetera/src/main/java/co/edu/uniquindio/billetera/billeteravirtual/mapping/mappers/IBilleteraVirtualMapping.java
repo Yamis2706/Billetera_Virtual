@@ -1,7 +1,7 @@
-package co.edu.uniquindio.billetera.billeteravirtual.service;
+package co.edu.uniquindio.billetera.billeteravirtual.mapping.mappers;
 
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.mapping.dto.UsuarioDto;
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.model.Usuario;
+import co.edu.uniquindio.billetera.billeteravirtual.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Usuario;
 import java.util.List;
 
 public interface IBilleteraVirtualMapping {

@@ -1,7 +1,7 @@
 package co.edu.uniquindio.billetera.billeteravirtual.viewController;
 
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.controller.UsuarioController;
-import co.edu.uniquindio.billeteravirtual.billetera_virtual.mapping.dto.UsuarioDto;
+import co.edu.uniquindio.billetera.billeteravirtual.controller.UsuarioController;
+import co.edu.uniquindio.billetera.billeteravirtual.mapping.dto.UsuarioDto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -90,11 +90,11 @@ public class UsuarioViewController {
     }
 
     private void initDataBinding() {
-        tcNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().nombre()));
-        tcCedula.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().cedula()));
-        tcCorreo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().correo()));
-        tcTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().telefono()));
-        tcDireccion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().direccion()));
+        tcNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        tcCedula.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCedula()));
+        tcCorreo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCorreo()));
+        tcTelefono.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
+        tcDireccion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDireccion()));
     }
 
     private void listenerSelection() {
@@ -106,27 +106,23 @@ public class UsuarioViewController {
 
     private void mostrarInformacionUsuario(UsuarioDto usuarioSeleccionado) {
         if(usuarioSeleccionado != null){
-            txtNombre.setText(usuarioSeleccionado.nombre());
-            txtCedula.setText(usuarioSeleccionado.cedula());
-            txtCorreo.setText(usuarioSeleccionado.correo());
-            txtTelefono.setText(usuarioSeleccionado.telefono());
-            txtDireccion.setText(usuarioSeleccionado.direccion());
+            txtNombre.setText(usuarioSeleccionado.getNombre());
+            txtCedula.setText(usuarioSeleccionado.getCedula());
+            txtCorreo.setText(usuarioSeleccionado.getCorreo());
+            txtTelefono.setText(usuarioSeleccionado.getTelefono());
+            txtDireccion.setText(usuarioSeleccionado.getDireccion());
         }
     }
 
     @FXML
-    void onActualizarUsuario(ActionEvent event) {
-    }
+    public void onActualizarUsuario(ActionEvent event) { }
 
     @FXML
-    void onAgregarUsuario(ActionEvent event) {
-    }
+    public void onAgregarUsuario(ActionEvent event) { }
 
     @FXML
-    void onEliminarUsuario(ActionEvent event) {
-    }
+    public void onEliminarUsuario(ActionEvent event) { }
 
     @FXML
-    void onNuevoUsuario(ActionEvent event) {
-    }
+    public void onNuevoUsuario(ActionEvent event) { }
 }
