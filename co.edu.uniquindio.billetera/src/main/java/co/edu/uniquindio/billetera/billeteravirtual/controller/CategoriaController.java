@@ -82,7 +82,7 @@ public class CategoriaController {
         reasignarIdsCategorias();
         limpiarCampos();
         mostrarMensaje("Categoría creada exitosamente.", true);
-        TransaccionController.recargarCategoriasGlobal();
+        // Eliminada la llamada a TransaccionController.recargarCategoriasGlobal();
     }
 
     @FXML
@@ -102,7 +102,7 @@ public class CategoriaController {
         reasignarIdsCategorias();
         limpiarCampos();
         mostrarMensaje("Categoría actualizada con éxito.", true);
-        TransaccionController.recargarCategoriasGlobal();
+        // Eliminada la llamada a TransaccionController.recargarCategoriasGlobal();
     }
 
     @FXML
@@ -115,7 +115,7 @@ public class CategoriaController {
         reasignarIdsCategorias();
         limpiarCampos();
         mostrarMensaje("Categoría eliminada.", true);
-        TransaccionController.recargarCategoriasGlobal();
+        // Eliminada la llamada a TransaccionController.recargarCategoriasGlobal();
     }
 
     // Agrega este método en CategoriaController
@@ -127,8 +127,6 @@ public class CategoriaController {
         DataUtil.guardarCategorias(categorias);
         listaCategorias.setAll(categorias);
     }
-
-
 
     private void limpiarCampos() {
         txtNombre.clear();

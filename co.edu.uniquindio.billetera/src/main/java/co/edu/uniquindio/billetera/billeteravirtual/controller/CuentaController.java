@@ -1,50 +1,53 @@
 package co.edu.uniquindio.billetera.billeteravirtual.controller;
 
+import javafx.beans.property.SimpleStringProperty;
 import co.edu.uniquindio.billetera.billeteravirtual.model.Cuenta;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Transaccion;
 import co.edu.uniquindio.billetera.billeteravirtual.utils.DataUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.UUID;
 
 public class CuentaController {
 
-    @FXML private TableView<Cuenta> tablaCuentas;
+    @FXML
+    private TableView<Cuenta> tablaCuentas;
+    @FXML
+    private TextField txtBanco, txtNumero, txtTipo, txtConsulta;
+    @FXML
+    private TextArea txtMovimientos;
+    @FXML
+    private Label lblMensaje;
+
+    private ObservableList<Cuenta> listaCuentas;
+
+    @FXML
+    private TableView<Transaccion> tablaTransacciones;
     @FXML private TableColumn<Cuenta, String> colIdCuenta;
     @FXML private TableColumn<Cuenta, String> colBanco;
     @FXML private TableColumn<Cuenta, String> colNumero;
     @FXML private TableColumn<Cuenta, String> colTipo;
     @FXML private TableColumn<Cuenta, String> colSaldo;
-    @FXML private TextField txtBanco;
-    @FXML private TextField txtNumero;
-    @FXML private TextField txtTipo;
-    @FXML private Button btnCrear;
-    @FXML private Button btnModificar;
-    @FXML private Button btnEliminar;
-    @FXML private Button btnDepositar;
-    @FXML private Button btnRetirar;
-    @FXML private Button btnTransferir;
-    @FXML private TextField txtConsulta;
-    @FXML private Button btnConsultar;
-    @FXML private TextArea txtMovimientos;
-    @FXML private Label lblMensaje;
 
-    private ObservableList<Cuenta> listaCuentas;
+
+    // En CuentaController.java
 
     @FXML
     public void initialize() {
         listaCuentas = FXCollections.observableArrayList(DataUtil.cargarCuentas());
         tablaCuentas.setItems(listaCuentas);
 
-        colIdCuenta.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getIdCuenta()));
-        colBanco.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getBanco()));
-        colNumero.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNumero()));
-        colTipo.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getTipo()));
-        colSaldo.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(String.valueOf(data.getValue().getSaldo())));
-
-        tablaCuentas.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> mostrarCuenta(newSel));
+        // Configuración de columnas
+        colIdCuenta.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdCuenta()));
+        colBanco.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getBanco()));
+        colNumero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumero()));
+        colTipo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipo()));
+        colSaldo.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getSaldo())));
     }
 
     @FXML
@@ -59,11 +62,9 @@ public class CuentaController {
         }
 
         Cuenta cuenta = new Cuenta(banco, numero, tipo);
-        listaCuentas.add(cuenta);
-        DataUtil.guardarCuentas(listaCuentas);
-        limpiarCampos(); // Esta línea limpia los campos
+        listaCuentas.add(cuenta); // Se guarda en memoria y se muestra en la tabla
+        limpiarCampos();
         lblMensaje.setText("Cuenta creada correctamente.");
-        tablaCuentas.refresh();
     }
 
     @FXML
@@ -89,6 +90,7 @@ public class CuentaController {
         limpiarCampos();
         lblMensaje.setText("Cuenta modificada correctamente.");
         tablaCuentas.refresh();
+        actualizarTransaccionesEnVista();
     }
 
     @FXML
@@ -103,6 +105,7 @@ public class CuentaController {
         limpiarCampos();
         lblMensaje.setText("Cuenta eliminada correctamente.");
         tablaCuentas.refresh();
+        actualizarTransaccionesEnVista();
     }
 
     @FXML
@@ -124,9 +127,24 @@ public class CuentaController {
                     return;
                 }
                 seleccionada.depositarDinero(monto);
-                tablaCuentas.refresh();
                 DataUtil.guardarCuentas(listaCuentas);
+
+                Transaccion transaccion = new Transaccion(
+                        UUID.randomUUID().toString(),
+                        LocalDate.now(),
+                        "Ingreso",
+                        monto,
+                        "Depósito en cuenta " + seleccionada.getNumero(),
+                        seleccionada,
+                        null,
+                        null,
+                        null
+                );
+                DataUtil.agregarTransaccion(transaccion);
+
+                tablaCuentas.refresh();
                 lblMensaje.setText("Depósito realizado.");
+                actualizarTransaccionesEnVista();
             } catch (NumberFormatException e) {
                 lblMensaje.setText("Monto inválido.");
             } catch (IllegalArgumentException e) {
@@ -154,9 +172,24 @@ public class CuentaController {
                     return;
                 }
                 seleccionada.retirarDinero(monto);
-                tablaCuentas.refresh();
                 DataUtil.guardarCuentas(listaCuentas);
+
+                Transaccion transaccion = new Transaccion(
+                        UUID.randomUUID().toString(),
+                        LocalDate.now(),
+                        "Gasto",
+                        monto,
+                        "Retiro de cuenta " + seleccionada.getNumero(),
+                        seleccionada,
+                        null,
+                        null,
+                        null
+                );
+                DataUtil.agregarTransaccion(transaccion);
+
+                tablaCuentas.refresh();
                 lblMensaje.setText("Retiro realizado.");
+                actualizarTransaccionesEnVista();
             } catch (NumberFormatException e) {
                 lblMensaje.setText("Monto inválido.");
             } catch (IllegalArgumentException e) {
@@ -191,9 +224,37 @@ public class CuentaController {
                     return;
                 }
                 origen.transferirDinero(destino, monto);
-                tablaCuentas.refresh();
                 DataUtil.guardarCuentas(listaCuentas);
+
+                Transaccion transaccionSalida = new Transaccion(
+                        UUID.randomUUID().toString(),
+                        LocalDate.now(),
+                        "Gasto",
+                        monto,
+                        "Transferencia a cuenta " + destino.getNumero(),
+                        origen,
+                        destino,
+                        null,
+                        null
+                );
+                DataUtil.agregarTransaccion(transaccionSalida);
+
+                Transaccion transaccionEntrada = new Transaccion(
+                        UUID.randomUUID().toString(),
+                        LocalDate.now(),
+                        "Ingreso",
+                        monto,
+                        "Transferencia desde cuenta " + origen.getNumero(),
+                        destino,
+                        origen,
+                        null,
+                        null
+                );
+                DataUtil.agregarTransaccion(transaccionEntrada);
+
+                tablaCuentas.refresh();
                 lblMensaje.setText("Transferencia realizada.");
+                actualizarTransaccionesEnVista();
             } catch (NumberFormatException e) {
                 lblMensaje.setText("Monto inválido.");
             } catch (IllegalArgumentException e) {
@@ -249,5 +310,12 @@ public class CuentaController {
         txtNumero.clear();
         txtTipo.clear();
         tablaCuentas.getSelectionModel().clearSelection();
+    }
+
+    private void actualizarTransaccionesEnVista() {
+        if (tablaTransacciones != null) {
+            tablaTransacciones.setItems(DataUtil.cargarTransaccionesObservable());
+            tablaTransacciones.refresh();
+        }
     }
 }

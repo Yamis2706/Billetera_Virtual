@@ -118,13 +118,7 @@ public class DataUtil {
         categorias.removeIf(c -> c.getId().equals(idCategoria));
         guardarCategorias(categorias);
 
-        List<Transaccion> transacciones = cargarTransacciones();
-        for (Transaccion t : transacciones) {
-            if (t.getCategoria() != null && t.getCategoria().getId().equals(idCategoria)) {
-                t.setCategoria(null);
-            }
-        }
-        guardarTransacciones(transacciones);
+        // No se puede limpiar la categoría en transacciones porque Transaccion no tiene categoría
     }
 
     public static List<Categoria> listarCategorias() {
@@ -174,7 +168,7 @@ public class DataUtil {
                         ((k % 2 == 0) ? "Ingreso" : "Gasto") + " " + (k + 1) + " de " + nombres[i],
                         cuenta,
                         null,
-                        categorias.get((i + k) % categorias.size()),
+                        null,
                         null
                 );
                 transacciones.add(t);
@@ -229,7 +223,7 @@ public class DataUtil {
     public static Transaccion buscarTransaccionPorId(String idTransaccion) {
         List<Transaccion> transacciones = cargarTransacciones();
         for (Transaccion t : transacciones) {
-            if (t.getIdTransaccion().equalsIgnoreCase(idTransaccion)) {
+            if (t.getId().equalsIgnoreCase(idTransaccion)) {
                 return t;
             }
         }
@@ -239,5 +233,93 @@ public class DataUtil {
     public static ObservableList<Transaccion> cargarTransaccionesObservable() {
         List<Transaccion> lista = cargarTransacciones();
         return javafx.collections.FXCollections.observableArrayList(lista);
+    }
+
+    // --- Métodos para sincronizar cuentas y transacciones ---
+
+    public static void agregarTransaccion(Transaccion transaccion) {
+        List<Transaccion> transacciones = cargarTransacciones();
+        transacciones.add(transaccion);
+        guardarTransacciones(transacciones);
+
+        // Actualiza movimientos en la cuenta origen
+        if (transaccion.getCuentaOrigen() != null) {
+            Cuenta cuenta = buscarCuentaPorNumero(transaccion.getCuentaOrigen().getNumero());
+            if (cuenta != null) {
+                if (cuenta.getMovimientos() == null) {
+                    cuenta.setMovimientos(new ArrayList<>());
+                }
+                cuenta.getMovimientos().add(transaccion.getDescripcion());
+                // Actualiza la lista de cuentas
+                List<Cuenta> cuentas = cargarCuentas();
+                for (int i = 0; i < cuentas.size(); i++) {
+                    if (cuentas.get(i).getNumero().equals(cuenta.getNumero())) {
+                        cuentas.set(i, cuenta);
+                        break;
+                    }
+                }
+                guardarCuentas(cuentas);
+            }
+        }
+        // Actualiza movimientos en la cuenta destino si existe
+        if (transaccion.getCuentaDestino() != null) {
+            Cuenta cuenta = buscarCuentaPorNumero(transaccion.getCuentaDestino().getNumero());
+            if (cuenta != null) {
+                if (cuenta.getMovimientos() == null) {
+                    cuenta.setMovimientos(new ArrayList<>());
+                }
+                cuenta.getMovimientos().add(transaccion.getDescripcion());
+                List<Cuenta> cuentas = cargarCuentas();
+                for (int i = 0; i < cuentas.size(); i++) {
+                    if (cuentas.get(i).getNumero().equals(cuenta.getNumero())) {
+                        cuentas.set(i, cuenta);
+                        break;
+                    }
+                }
+                guardarCuentas(cuentas);
+            }
+        }
+    }
+
+    public static void eliminarTransaccion(String idTransaccion) {
+        List<Transaccion> transacciones = cargarTransacciones();
+        Transaccion t = transacciones.stream()
+                .filter(tr -> tr.getId().equals(idTransaccion))
+                .findFirst().orElse(null);
+        if (t != null) {
+            transacciones.remove(t);
+            guardarTransacciones(transacciones);
+
+            // Elimina el movimiento de la cuenta origen
+            if (t.getCuentaOrigen() != null) {
+                Cuenta cuenta = buscarCuentaPorNumero(t.getCuentaOrigen().getNumero());
+                if (cuenta != null && cuenta.getMovimientos() != null) {
+                    cuenta.getMovimientos().remove(t.getDescripcion());
+                    List<Cuenta> cuentas = cargarCuentas();
+                    for (int i = 0; i < cuentas.size(); i++) {
+                        if (cuentas.get(i).getNumero().equals(cuenta.getNumero())) {
+                            cuentas.set(i, cuenta);
+                            break;
+                        }
+                    }
+                    guardarCuentas(cuentas);
+                }
+            }
+            // Elimina el movimiento de la cuenta destino si existe
+            if (t.getCuentaDestino() != null) {
+                Cuenta cuenta = buscarCuentaPorNumero(t.getCuentaDestino().getNumero());
+                if (cuenta != null && cuenta.getMovimientos() != null) {
+                    cuenta.getMovimientos().remove(t.getDescripcion());
+                    List<Cuenta> cuentas = cargarCuentas();
+                    for (int i = 0; i < cuentas.size(); i++) {
+                        if (cuentas.get(i).getNumero().equals(cuenta.getNumero())) {
+                            cuentas.set(i, cuenta);
+                            break;
+                        }
+                    }
+                    guardarCuentas(cuentas);
+                }
+            }
+        }
     }
 }

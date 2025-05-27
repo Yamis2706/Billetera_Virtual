@@ -1,285 +1,243 @@
 package co.edu.uniquindio.billetera.billeteravirtual.controller;
 
-import javafx.scene.control.cell.PropertyValueFactory;
-import co.edu.uniquindio.billetera.billeteravirtual.model.Categoria;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Cuenta;
 import co.edu.uniquindio.billetera.billeteravirtual.model.Transaccion;
 import co.edu.uniquindio.billetera.billeteravirtual.utils.DataUtil;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.StringConverter;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class TransaccionController {
 
-    @FXML private TableView<Transaccion> tablaTransacciones;
-    @FXML private TableColumn<Transaccion, String> colIdTransaccion;
-    @FXML private TableColumn<Transaccion, String> colDescripcion;
-    @FXML private TableColumn<Transaccion, Double> colMonto;
-    @FXML private TableColumn<Transaccion, LocalDate> colFecha;
-    @FXML private TableColumn<Transaccion, String> colTipo;
-    @FXML private TableColumn<Transaccion, String> colCategoria;
-    @FXML private TextField txtIdTransaccion;
-    @FXML private TextField txtDescripcion, txtMonto;
-    @FXML private DatePicker dpFecha;
-    @FXML private ComboBox<String> cbTipo;
-    @FXML private ComboBox<Categoria> cbCategoria;
-    @FXML private Button btnCrear, btnModificar, btnEliminar, btnFiltrar, btnBuscarId, btnLimpiarBusqueda;
-    @FXML private Label lblMensaje;
+    // Constantes de tipos de transacción
+    private static final String TIPO_DEPOSITO = "Depósito";
+    private static final String TIPO_TRANSFERENCIA = "Transferencia";
+    private static final String TIPO_RETIRO = "Retiro";
 
-    // Filtros
-    @FXML private ComboBox<String> cbFiltroOpcion;
-    @FXML private ComboBox<String> cbFiltroTipo;
-    @FXML private DatePicker dpFiltroFecha;
-    @FXML private ComboBox<Categoria> cbFiltroCategoria;
+    // Constantes de mensajes
+    private static final String MSG_CAMPOS_REQUERIDOS = "Por favor complete todos los campos requeridos para realizar la transacción.";
+    private static final String MSG_MONTO_INVALIDO = "Monto inválido. Ingrese solo números.";
+    private static final String MSG_MONTO_MAYOR_CERO = "El monto debe ser mayor a cero. Ingrese un valor válido.";
+    private static final String MSG_MISMA_CUENTA = "No puede transferir entre la misma cuenta. Seleccione cuentas diferentes.";
+    private static final String MSG_MONTO_SUPERA_SALDO = "No puede %s un monto mayor al saldo disponible (%s).";
+    private static final String MSG_ERROR_UNEXPECTED = "Ocurrió un error inesperado: ";
+    private static final String MSG_ERROR_CARGA = "Error al cargar los datos: ";
+    private static final String MSG_ERROR_SINCRONIZAR = "Error al sincronizar cuentas: ";
 
+    @FXML
+    private ComboBox<Cuenta> cbCuentaOrigen, cbCuentaDestino;
+    @FXML
+    private ComboBox<String> cbTipoTransaccion;
+    @FXML
+    private TextField txtMonto;
+    @FXML
+    private TableView<Transaccion> tablaTransacciones;
+    @FXML
+    private TableColumn<Transaccion, String> colId, colTipo, colOrigen, colDestino, colMonto, colFecha;
+    @FXML
+    private Label lblMensaje;
+
+    private ObservableList<Cuenta> listaCuentas;
     private ObservableList<Transaccion> listaTransacciones;
-
-    private static final String[] TIPOS = {"Depósito", "Retiro", "Transferencia"};
-
-    private static TransaccionController instancia;
-
-    public TransaccionController() {
-        instancia = this;
-    }
-
-    public static void recargarCategoriasGlobal() {
-        if (instancia != null) {
-            instancia.recargarCategorias();
-        }
-    }
 
     @FXML
     public void initialize() {
-        listaTransacciones = DataUtil.cargarTransaccionesObservable();
-        tablaTransacciones.setItems(listaTransacciones);
+        try {
+            cargarCuentasEnCombos();
+            cbTipoTransaccion.setItems(FXCollections.observableArrayList(TIPO_DEPOSITO, TIPO_TRANSFERENCIA, TIPO_RETIRO));
 
-        colIdTransaccion.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getIdTransaccion()));
-        colDescripcion.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getDescripcion()));
-        colMonto.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getMonto()));
-        colFecha.setCellValueFactory(data -> new javafx.beans.property.SimpleObjectProperty<>(data.getValue().getFecha()));
-        colTipo.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getTipo()));
-        colCategoria.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
-                data.getValue().getCategoria() != null ? data.getValue().getCategoria().getNombre() : ""
-        ));
-
-        cbTipo.getItems().setAll(TIPOS);
-
-        List<Categoria> categorias = DataUtil.cargarCategorias();
-        cbCategoria.getItems().setAll(categorias);
-
-        cbCategoria.setConverter(new StringConverter<>() {
-            @Override
-            public String toString(Categoria object) {
-                return object != null ? object.getNombre() : "";
-            }
-            @Override
-            public Categoria fromString(String string) {
-                return categorias.stream().filter(c -> c.getNombre().equals(string)).findFirst().orElse(null);
-            }
-        });
-
-        // Filtros
-        if (cbFiltroOpcion != null) {
-            cbFiltroOpcion.valueProperty().addListener((obs, oldVal, newVal) -> actualizarVisibilidadFiltros());
-        }
-        if (cbFiltroTipo != null) {
-            cbFiltroTipo.getItems().setAll(TIPOS);
-        }
-        if (cbFiltroCategoria != null) {
-            cbFiltroCategoria.getItems().setAll(categorias);
-            cbFiltroCategoria.setConverter(new StringConverter<>() {
-                @Override
-                public String toString(Categoria object) {
-                    return object != null ? object.getNombre() : "";
-                }
-                @Override
-                public Categoria fromString(String string) {
-                    return categorias.stream().filter(c -> c.getNombre().equals(string)).findFirst().orElse(null);
+            cbTipoTransaccion.valueProperty().addListener((obs, oldVal, newVal) -> {
+                if (TIPO_TRANSFERENCIA.equals(newVal)) {
+                    cbCuentaDestino.setDisable(false);
+                } else {
+                    cbCuentaDestino.setDisable(true);
+                    cbCuentaDestino.getSelectionModel().clearSelection();
                 }
             });
-        }
+            cbCuentaDestino.setDisable(true);
 
-        tablaTransacciones.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> mostrarTransaccion(newSel));
-        actualizarVisibilidadFiltros();
-    }
+            colId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getId()));
+            colTipo.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTipo()));
+            colOrigen.setCellValueFactory(data -> new SimpleStringProperty(
+                    data.getValue().getCuentaOrigen() != null ? data.getValue().getCuentaOrigen().getNumero() : ""));
+            colDestino.setCellValueFactory(data -> new SimpleStringProperty(
+                    data.getValue().getCuentaDestino() != null ? data.getValue().getCuentaDestino().getNumero() : ""));
+            colMonto.setCellValueFactory(data -> new SimpleStringProperty(
+                    String.valueOf(data.getValue().getMonto())));
+            colFecha.setCellValueFactory(data -> new SimpleStringProperty(
+                    data.getValue().getFecha().toString()));
 
-    public void recargarCategorias() {
-        List<Categoria> categorias = DataUtil.cargarCategorias();
-        cbCategoria.getItems().setAll(categorias);
-        if (cbFiltroCategoria != null) {
-            cbFiltroCategoria.getItems().setAll(categorias);
-        }
-    }
+            listaTransacciones = DataUtil.cargarTransaccionesObservable();
+            tablaTransacciones.setItems(listaTransacciones);
+            tablaTransacciones.setEditable(false);
 
-    private void mostrarTransaccion(Transaccion t) {
-        if (t != null) {
-            txtIdTransaccion.setText(t.getIdTransaccion());
-            txtDescripcion.setText(t.getDescripcion());
-            txtMonto.setText(String.valueOf(t.getMonto()));
-            dpFecha.setValue(t.getFecha());
-            cbTipo.setValue(t.getTipo());
-            cbCategoria.setValue(t.getCategoria());
-        }
-    }
-
-    @FXML
-    private void crearTransaccion() {
-        try {
-            String descripcion = txtDescripcion.getText();
-            double monto = Double.parseDouble(txtMonto.getText());
-            LocalDate fecha = dpFecha.getValue();
-            String tipo = cbTipo.getValue();
-            Categoria categoria = cbCategoria.getValue();
-
-            if (categoria == null) {
-                lblMensaje.setText("Seleccione una categoría.");
-                return;
-            }
-
-            String idTransaccion = UUID.randomUUID().toString().substring(0, 5);
-
-            Transaccion t = new Transaccion(
-                    idTransaccion,
-                    fecha,
-                    tipo,
-                    monto,
-                    descripcion,
-                    null,
-                    null,
-                    categoria,
-                    null
-            );
-            listaTransacciones.add(t);
-            DataUtil.guardarTransacciones(listaTransacciones);
-            limpiarCampos();
-            lblMensaje.setText("Transacción creada.");
+            limpiarMensaje();
         } catch (Exception e) {
-            lblMensaje.setText("Datos inválidos.");
+            mostrarMensaje(MSG_ERROR_CARGA + e.getMessage(), false);
         }
     }
 
     @FXML
-    private void modificarTransaccion() {
-        Transaccion seleccionado = tablaTransacciones.getSelectionModel().getSelectedItem();
-        if (seleccionado != null) {
-            try {
-                seleccionado.setDescripcion(txtDescripcion.getText());
-                seleccionado.setMonto(Double.parseDouble(txtMonto.getText()));
-                seleccionado.setFecha(dpFecha.getValue());
-                seleccionado.setTipo(cbTipo.getValue());
-                Categoria categoria = cbCategoria.getValue();
-                seleccionado.setCategoria(categoria);
-                tablaTransacciones.refresh();
-                DataUtil.guardarTransacciones(listaTransacciones);
-                limpiarCampos();
-                lblMensaje.setText("Transacción modificada.");
-            } catch (Exception e) {
-                lblMensaje.setText("Datos inválidos.");
+    private void realizarTransaccion() {
+        limpiarMensaje();
+
+        String tipo = cbTipoTransaccion.getValue();
+        Cuenta origen = cbCuentaOrigen.getValue();
+        Cuenta destino = cbCuentaDestino.getValue();
+        String montoStr = txtMonto.getText();
+
+        if (!validarCampos(tipo, origen, destino, montoStr)) return;
+
+        try {
+            double monto = Double.parseDouble(montoStr);
+            if (!validarMonto(monto, tipo, origen, destino)) return;
+
+            switch (tipo) {
+                case TIPO_DEPOSITO -> {
+                    origen.depositarDinero(monto);
+                    registrarTransaccion(TIPO_DEPOSITO, origen, null, monto);
+                    mostrarMensaje("Depósito realizado exitosamente en la cuenta " + origen.getNumero() + ".", true);
+                }
+                case TIPO_RETIRO -> {
+                    origen.retirarDinero(monto);
+                    registrarTransaccion(TIPO_RETIRO, origen, null, monto);
+                    mostrarMensaje("Retiro realizado exitosamente de la cuenta " + origen.getNumero() + ".", true);
+                }
+                case TIPO_TRANSFERENCIA -> {
+                    origen.transferirDinero(destino, monto);
+                    registrarTransaccion(TIPO_TRANSFERENCIA, origen, destino, monto);
+                    mostrarMensaje("Transferencia realizada exitosamente de la cuenta " + origen.getNumero() +
+                            " a la cuenta " + destino.getNumero() + ".", true);
+                }
             }
-        }
-    }
-
-    @FXML
-    private void eliminarTransaccion() {
-        Transaccion seleccionado = tablaTransacciones.getSelectionModel().getSelectedItem();
-        if (seleccionado != null) {
-            listaTransacciones.remove(seleccionado);
-            DataUtil.guardarTransacciones(listaTransacciones);
+            DataUtil.guardarCuentas(listaCuentas);
+            tablaTransacciones.refresh();
+            sincronizarCuentas();
             limpiarCampos();
-            lblMensaje.setText("Transacción eliminada.");
+        } catch (NumberFormatException e) {
+            mostrarMensaje(MSG_MONTO_INVALIDO, false);
+        } catch (IllegalArgumentException e) {
+            mostrarMensaje("Error: " + e.getMessage(), false);
+        } catch (Exception e) {
+            mostrarMensaje(MSG_ERROR_UNEXPECTED + e.getMessage(), false);
         }
     }
 
-    private void actualizarVisibilidadFiltros() {
-        String opcion = cbFiltroOpcion != null ? cbFiltroOpcion.getValue() : null;
-        if (cbFiltroTipo != null) cbFiltroTipo.setVisible("Tipo".equals(opcion));
-        if (dpFiltroFecha != null) dpFiltroFecha.setVisible("Fecha".equals(opcion));
-        if (cbFiltroCategoria != null) cbFiltroCategoria.setVisible("Categoría".equals(opcion));
+    // --- Métodos privados de validación y mensajes ---
+
+    private boolean validarCampos(String tipo, Cuenta origen, Cuenta destino, String montoStr) {
+        if (tipo == null || montoStr.isEmpty() || origen == null || (TIPO_TRANSFERENCIA.equals(tipo) && destino == null)) {
+            mostrarMensaje(MSG_CAMPOS_REQUERIDOS, false);
+            return false;
+        }
+        return true;
     }
 
-    @FXML
-    private void filtrarTransacciones() {
-        if (cbFiltroOpcion == null) return;
-        String opcion = cbFiltroOpcion.getValue();
-        if ("Tipo".equals(opcion) && cbFiltroTipo != null) {
-            String tipo = cbFiltroTipo.getValue();
-            if (tipo != null && !tipo.isEmpty()) {
-                List<Transaccion> filtradas = listaTransacciones.stream()
-                        .filter(t -> tipo.equals(t.getTipo()))
-                        .collect(Collectors.toList());
-                tablaTransacciones.setItems(FXCollections.observableArrayList(filtradas));
-                lblMensaje.setText("Filtrado por tipo.");
-            } else {
-                tablaTransacciones.setItems(listaTransacciones);
-                lblMensaje.setText("Seleccione un tipo.");
+    private boolean validarMonto(double monto, String tipo, Cuenta origen, Cuenta destino) {
+        if (monto <= 0) {
+            mostrarMensaje(MSG_MONTO_MAYOR_CERO, false);
+            return false;
+        }
+        if (TIPO_RETIRO.equals(tipo) && monto > origen.getSaldo()) {
+            mostrarMensaje(String.format(MSG_MONTO_SUPERA_SALDO, "retirar", origen.getSaldo()), false);
+            return false;
+        }
+        if (TIPO_TRANSFERENCIA.equals(tipo)) {
+            if (origen.getNumero().equals(destino.getNumero())) {
+                mostrarMensaje(MSG_MISMA_CUENTA, false);
+                return false;
             }
-        } else if ("Fecha".equals(opcion) && dpFiltroFecha != null) {
-            LocalDate fecha = dpFiltroFecha.getValue();
-            if (fecha != null) {
-                List<Transaccion> filtradas = listaTransacciones.stream()
-                        .filter(t -> fecha.equals(t.getFecha()))
-                        .collect(Collectors.toList());
-                tablaTransacciones.setItems(FXCollections.observableArrayList(filtradas));
-                lblMensaje.setText("Filtrado por fecha.");
-            } else {
-                tablaTransacciones.setItems(listaTransacciones);
-                lblMensaje.setText("Seleccione una fecha.");
+            if (monto > origen.getSaldo()) {
+                mostrarMensaje(String.format(MSG_MONTO_SUPERA_SALDO, "transferir", origen.getSaldo()), false);
+                return false;
             }
-        } else if ("Categoría".equals(opcion) && cbFiltroCategoria != null) {
-            Categoria categoria = cbFiltroCategoria.getValue();
-            if (categoria != null) {
-                List<Transaccion> filtradas = listaTransacciones.stream()
-                        .filter(t -> t.getCategoria() != null && categoria.getNombre().equals(t.getCategoria().getNombre()))
-                        .collect(Collectors.toList());
-                tablaTransacciones.setItems(FXCollections.observableArrayList(filtradas));
-                lblMensaje.setText("Filtrado por categoría.");
-            } else {
-                tablaTransacciones.setItems(listaTransacciones);
-                lblMensaje.setText("Seleccione una categoría.");
-            }
-        } else {
-            tablaTransacciones.setItems(listaTransacciones);
-            lblMensaje.setText("Seleccione un filtro.");
         }
+        return true;
     }
 
-    @FXML
-    private void buscarTransaccionPorId() {
-        String id = txtIdTransaccion.getText().trim();
-        if (id.isEmpty()) {
-            tablaTransacciones.setItems(listaTransacciones);
-            lblMensaje.setText("");
-            return;
-        }
-        Transaccion t = DataUtil.buscarTransaccionPorId(id);
-        if (t != null) {
-            tablaTransacciones.setItems(FXCollections.observableArrayList(t));
-            lblMensaje.setText("Transacción encontrada.");
-        } else {
-            tablaTransacciones.setItems(FXCollections.observableArrayList());
-            lblMensaje.setText("No se encontró la transacción con ese ID.");
-        }
+    private void mostrarMensaje(String mensaje, boolean exito) {
+        lblMensaje.setText(mensaje);
+        lblMensaje.setStyle(exito
+                ? "-fx-text-fill: green; -fx-font-weight: bold;"
+                : "-fx-text-fill: red; -fx-font-weight: bold;");
     }
 
-    @FXML
-    private void limpiarBusqueda() {
-        txtIdTransaccion.clear();
-        tablaTransacciones.setItems(listaTransacciones);
-        lblMensaje.setText("");
+    // --- Métodos auxiliares de lógica de UI y sincronización ---
+
+    private void registrarTransaccion(String tipo, Cuenta origen, Cuenta destino, double monto) {
+        String descripcion = switch (tipo) {
+            case TIPO_DEPOSITO -> "Depósito de $" + monto + " a la cuenta " + origen.getNumero();
+            case TIPO_RETIRO -> "Retiro de $" + monto + " de la cuenta " + origen.getNumero();
+            case TIPO_TRANSFERENCIA -> "Transferencia de $" + monto + " de la cuenta " + origen.getNumero() +
+                    " a la cuenta " + (destino != null ? destino.getNumero() : "");
+            default -> "";
+        };
+        Transaccion transaccion = new Transaccion(
+                UUID.randomUUID().toString(),
+                LocalDate.now(),
+                tipo,
+                monto,
+                descripcion,
+                origen,
+                destino,
+                null,
+                null
+        );
+        DataUtil.agregarTransaccion(transaccion);
+        listaTransacciones.add(transaccion);
     }
 
     private void limpiarCampos() {
-        txtIdTransaccion.clear();
-        txtDescripcion.clear();
+        cbTipoTransaccion.getSelectionModel().clearSelection();
+        cbCuentaOrigen.getSelectionModel().clearSelection();
+        cbCuentaDestino.getSelectionModel().clearSelection();
         txtMonto.clear();
-        dpFecha.setValue(null);
-        cbTipo.setValue(null);
-        cbCategoria.getSelectionModel().clearSelection();
-        tablaTransacciones.getSelectionModel().clearSelection();
+        cbCuentaDestino.setDisable(true);
+    }
+
+    private void limpiarMensaje() {
+        lblMensaje.setText("");
+        lblMensaje.setStyle("");
+    }
+
+    private void sincronizarCuentas() {
+        try {
+            List<Cuenta> cuentasActualizadas = DataUtil.cargarCuentas();
+            listaCuentas.setAll(cuentasActualizadas);
+            cbCuentaOrigen.setItems(listaCuentas);
+            cbCuentaDestino.setItems(listaCuentas);
+        } catch (Exception e) {
+            mostrarMensaje(MSG_ERROR_SINCRONIZAR + e.getMessage(), false);
+        }
+    }
+
+    private void cargarCuentasEnCombos() {
+        List<Cuenta> cuentas = DataUtil.cargarCuentas();
+        listaCuentas = FXCollections.observableArrayList(cuentas);
+        cbCuentaOrigen.setItems(listaCuentas);
+        cbCuentaDestino.setItems(listaCuentas);
+
+        cbCuentaOrigen.setCellFactory(lv -> new ListCell<>() {
+            @Override
+            protected void updateItem(Cuenta item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getNumero());
+            }
+        });
+        cbCuentaOrigen.setButtonCell(new ListCell<>() {
+            @Override
+            protected void updateItem(Cuenta item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : item.getNumero());
+            }
+        });
+        cbCuentaDestino.setCellFactory(cbCuentaOrigen.getCellFactory());
+        cbCuentaDestino.setButtonCell(cbCuentaOrigen.getButtonCell());
     }
 }

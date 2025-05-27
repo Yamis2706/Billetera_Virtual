@@ -1,10 +1,11 @@
 package co.edu.uniquindio.billetera.billeteravirtual.patrones.comportamiento.strategy;
 
-import co.edu.uniquindio.billetera.billeteravirtual.patrones.comportamiento.strategy.TransaccionStrategy;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Transaccion;
 
 public class DepositoStrategy implements TransaccionStrategy {
     @Override
-    public void ejecutarTransaccion(double monto) {
-        System.out.println("Depósito realizado por: " + monto);
+    public void ejecutarTransaccion(Transaccion transaccion) {
+        System.out.println("Depósito realizado por: " + transaccion.getMonto());
+        // Aquí puedes agregar la lógica de depósito usando transaccion.getCuenta(), etc.
     }
 }
