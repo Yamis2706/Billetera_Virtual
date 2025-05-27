@@ -82,7 +82,8 @@ public class CategoriaController {
         reasignarIdsCategorias();
         limpiarCampos();
         mostrarMensaje("Categoría creada exitosamente.", true);
-        // Eliminada la llamada a TransaccionController.recargarCategoriasGlobal();
+        // Eliminada la llamada a TransaccionesController
+        // .recargarCategoriasGlobal();
     }
 
     @FXML
@@ -102,7 +103,8 @@ public class CategoriaController {
         reasignarIdsCategorias();
         limpiarCampos();
         mostrarMensaje("Categoría actualizada con éxito.", true);
-        // Eliminada la llamada a TransaccionController.recargarCategoriasGlobal();
+        // Eliminada la llamada a TransaccionesController
+        // .recargarCategoriasGlobal();
     }
 
     @FXML

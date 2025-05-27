@@ -10,10 +10,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 
 public class TransaccionController {
+
+    private static int contadorTransacciones = 1;
+
+    private String generarIdTransaccion() {
+        return String.format("%04d", contadorTransacciones++);
+    }
 
     // Constantes de tipos de transacción
     private static final String TIPO_DEPOSITO = "Depósito";
@@ -39,7 +45,7 @@ public class TransaccionController {
     @FXML
     private TableView<Transaccion> tablaTransacciones;
     @FXML
-    private TableColumn<Transaccion, String> colId, colTipo, colOrigen, colDestino, colMonto, colFecha;
+    private TableColumn<Transaccion, String> colId, colTipo, colOrigen, colDestino, colMonto, colDescripcion, colFecha;
     @FXML
     private Label lblMensaje;
 
@@ -70,10 +76,12 @@ public class TransaccionController {
                     data.getValue().getCuentaDestino() != null ? data.getValue().getCuentaDestino().getNumero() : ""));
             colMonto.setCellValueFactory(data -> new SimpleStringProperty(
                     String.valueOf(data.getValue().getMonto())));
+            colDescripcion.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDescripcion()));
             colFecha.setCellValueFactory(data -> new SimpleStringProperty(
                     data.getValue().getFecha().toString()));
 
-            listaTransacciones = DataUtil.cargarTransaccionesObservable();
+            // Cambios aquí: la tabla inicia vacía
+            listaTransacciones = FXCollections.observableArrayList();
             tablaTransacciones.setItems(listaTransacciones);
             tablaTransacciones.setEditable(false);
 
@@ -117,8 +125,8 @@ public class TransaccionController {
                 }
             }
             DataUtil.guardarCuentas(listaCuentas);
-            tablaTransacciones.refresh();
             sincronizarCuentas();
+            CuentaController.refrescarTablaCuentas();
             limpiarCampos();
         } catch (NumberFormatException e) {
             mostrarMensaje(MSG_MONTO_INVALIDO, false);
@@ -179,7 +187,7 @@ public class TransaccionController {
             default -> "";
         };
         Transaccion transaccion = new Transaccion(
-                UUID.randomUUID().toString(),
+                generarIdTransaccion(),
                 LocalDate.now(),
                 tipo,
                 monto,
@@ -191,6 +199,12 @@ public class TransaccionController {
         );
         DataUtil.agregarTransaccion(transaccion);
         listaTransacciones.add(transaccion);
+        ordenarTransaccionesPorId();
+        tablaTransacciones.refresh();
+    }
+
+    private void ordenarTransaccionesPorId() {
+        listaTransacciones.sort(Comparator.comparing(Transaccion::getId));
     }
 
     private void limpiarCampos() {

@@ -4,23 +4,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="420.0" prefWidth="820.0"
+<AnchorPane prefHeight="500.0" prefWidth="820.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.PresupuestoController">
     <children>
-        <TableView fx:id="tablaPresupuestos" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="780.0">
+        <TableView fx:id="tablaPresupuestos" layoutX="20.0" layoutY="20.0"
+                   prefHeight="350.0" prefWidth="910.0">
             <columns>
-                <TableColumn fx:id="colId" prefWidth="80.0" text="ID"/>
+                <TableColumn fx:id="colId" prefWidth="100.0" text="ID"/>
                 <TableColumn fx:id="colNombre" prefWidth="120.0" text="Nombre"/>
-                <TableColumn fx:id="colCategoria" prefWidth="120.0" text="Categoría"/>
-                <TableColumn fx:id="colMonto" prefWidth="100.0" text="Presupuesto"/>
-                <TableColumn fx:id="colGastado" prefWidth="120.0" text="Monto Gastado"/>
-                <TableColumn fx:id="colSaldo" prefWidth="100.0" text="Saldo"/>
-                <TableColumn fx:id="colEstado" prefWidth="100.0" text="Estado"/>
+                <TableColumn fx:id="colCategoria" prefWidth="150.0" text="Categoría"/>
+                <TableColumn fx:id="colMonto" prefWidth="140.0" text="Presupuesto"/>
+                <TableColumn fx:id="colGastado" prefWidth="140.0" text="Monto Gastado"/>
+                <TableColumn fx:id="colSaldo" prefWidth="140.0" text="Saldo"/>
+                <TableColumn fx:id="colEstado" prefWidth="140.0" text="Estado"/>
             </columns>
         </TableView>
-        <HBox layoutX="20.0" layoutY="240.0" spacing="10.0">
+        <HBox layoutX="20.0" layoutY="400.0" spacing="20.0">
             <children>
                 <TextField fx:id="txtNombre" promptText="Nombre" prefWidth="120.0"/>
                 <ComboBox fx:id="cbCategoria" promptText="Categoría" prefWidth="120.0"/>
@@ -28,19 +29,19 @@
                 <TextField fx:id="txtGastado" promptText="Monto Gastado" prefWidth="120.0"/>
             </children>
         </HBox>
-        <HBox layoutX="20.0" layoutY="290.0" spacing="10.0">
+        <HBox layoutX="20.0" layoutY="450.0" spacing="25.0">
             <children>
                 <Button fx:id="btnCrear" text="Crear" onAction="#crearPresupuesto"/>
                 <Button fx:id="btnModificar" text="Modificar" onAction="#modificarPresupuesto"/>
                 <Button fx:id="btnEliminar" text="Eliminar" onAction="#eliminarPresupuesto"/>
             </children>
         </HBox>
-        <HBox layoutX="20.0" layoutY="340.0" spacing="20.0">
+        <HBox layoutX="20.0" layoutY="500.0" spacing="20.0">
             <children>
                 <Label fx:id="lblEstado" text=""/>
-                <Label fx:id="lblGastado" text="Monto Gastado:"/>
             </children>
         </HBox>
-        <Label fx:id="lblMensaje" layoutX="20.0" layoutY="380.0" textFill="red"/>
+        <Label fx:id="lblMensaje" layoutX="20.0" layoutY="550.0"
+               textFill="green"/>
     </children>
 </AnchorPane>

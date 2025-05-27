@@ -12,10 +12,10 @@ public abstract class TransaccionDecorator extends Transaccion {
                 transaccion.getTipo(),
                 transaccion.getMonto(),
                 transaccion.getDescripcion(),
-                transaccion.getCuenta(), // Corregido aquí
+                transaccion.getCuentaOrigen(),
                 transaccion.getCuentaDestino(),
                 transaccion.getCategoria(),
-                transaccion.getPresupuesto() // Asegúrate de que este getter exista
+                transaccion.getPresupuesto()
         );
         this.transaccion = transaccion;
     }

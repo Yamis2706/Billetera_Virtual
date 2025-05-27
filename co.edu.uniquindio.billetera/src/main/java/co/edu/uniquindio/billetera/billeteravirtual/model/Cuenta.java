@@ -26,12 +26,23 @@ public class Cuenta implements Serializable {
         return sb.toString();
     }
 
+    // Constructor original
     public Cuenta(String banco, String numero, String tipo) {
         this.idCuenta = generarIdCuenta();
         this.banco = banco;
         this.numero = numero;
         this.tipo = tipo;
         this.saldo = 0.0;
+        this.movimientos = new ArrayList<>();
+    }
+
+    // Constructor con saldo inicial
+    public Cuenta(String banco, String numero, String tipo, double saldoInicial) {
+        this.idCuenta = generarIdCuenta();
+        this.banco = banco;
+        this.numero = numero;
+        this.tipo = tipo;
+        this.saldo = saldoInicial;
         this.movimientos = new ArrayList<>();
     }
 

@@ -1,3 +1,4 @@
+// src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Transaccion.java
 package co.edu.uniquindio.billetera.billeteravirtual.model;
 
 import java.io.Serializable;
@@ -12,10 +13,11 @@ public class Transaccion implements Serializable {
     private Cuenta cuentaOrigen;
     private Cuenta cuentaDestino;
     private Categoria categoria;
-    private Object otro; // Si tienes otro campo, ajústalo según tu modelo
+    private Presupuesto presupuesto; // Nuevo campo
+    private Object otro;
 
     public Transaccion(String id, LocalDate fecha, String tipo, double monto, String descripcion,
-                       Cuenta cuentaOrigen, Cuenta cuentaDestino, Categoria categoria, Object otro) {
+                       Cuenta cuentaOrigen, Cuenta cuentaDestino, Categoria categoria, Presupuesto presupuesto) {
         this.id = id;
         this.fecha = fecha;
         this.tipo = tipo;
@@ -24,7 +26,7 @@ public class Transaccion implements Serializable {
         this.cuentaOrigen = cuentaOrigen;
         this.cuentaDestino = cuentaDestino;
         this.categoria = categoria;
-        this.otro = otro;
+        this.presupuesto = presupuesto;
     }
 
     // Getters y setters
@@ -37,10 +39,11 @@ public class Transaccion implements Serializable {
     public Cuenta getCuentaDestino() { return cuentaDestino; }
     public Categoria getCategoria() { return categoria; }
     public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+    public Presupuesto getPresupuesto() { return presupuesto; }
+    public void setPresupuesto(Presupuesto presupuesto) { this.presupuesto = presupuesto; }
     public Object getOtro() { return otro; }
     public void setOtro(Object otro) { this.otro = otro; }
 
-    // Método requerido por el facade
     public void ejecutar() {
         switch (tipo) {
             case "Depósito" -> {
@@ -62,7 +65,6 @@ public class Transaccion implements Serializable {
         }
     }
 
-    // Método requerido por el facade
     public String getIdTransaccion() {
         return id;
     }

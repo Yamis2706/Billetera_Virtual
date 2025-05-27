@@ -2,28 +2,31 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml">
-    <HBox spacing="10">
+<VBox spacing="40" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.TransaccionController">
+    <HBox spacing="20">
         <Label text="Cuenta Origen:"/>
-        <ComboBox fx:id="cbCuentaOrigen"/>
+        <ComboBox fx:id="cbCuentaOrigen" promptText="Seleccione cuenta origen"/>
         <Label text="Cuenta Destino:"/>
-        <ComboBox fx:id="cbCuentaDestino"/>
+        <ComboBox fx:id="cbCuentaDestino" promptText="Seleccione cuenta destino"/>
     </HBox>
-    <HBox spacing="10">
+    <HBox spacing="20">
         <Label text="Tipo de Transacción:"/>
-        <ComboBox fx:id="cbTipoTransaccion"/>
+        <ComboBox fx:id="cbTipoTransaccion" promptText="Seleccione tipo"/>
         <Label text="Monto:"/>
         <TextField fx:id="txtMonto"/>
         <Button text="Realizar Transacción" onAction="#realizarTransaccion"/>
     </HBox>
-    <TableView fx:id="tablaTransacciones">
+    <TableView fx:id="tablaTransacciones" prefWidth="950" >
         <columns>
-            <TableColumn text="ID" fx:id="colId"/>
-            <TableColumn text="Tipo" fx:id="colTipo"/>
-            <TableColumn text="Cuenta Origen" fx:id="colOrigen"/>
-            <TableColumn text="Cuenta Destino" fx:id="colDestino"/>
-            <TableColumn text="Monto" fx:id="colMonto"/>
-            <TableColumn text="Fecha" fx:id="colFecha"/>
+            <TableColumn text="ID" fx:id="colId" prefWidth="50"/>
+            <TableColumn text="Tipo" fx:id="colTipo" prefWidth="100"/>
+            <TableColumn text="Cuenta Origen" fx:id="colOrigen" prefWidth="100"/>
+            <TableColumn text="Cuenta Destino" fx:id="colDestino" prefWidth="100"/>
+            <TableColumn text="Monto" fx:id="colMonto" prefWidth="100"/>
+            <TableColumn  text="Descripción" fx:id="colDescripcion" prefWidth="380"/>
+            <TableColumn text="Fecha" fx:id="colFecha" prefWidth="110"/>
         </columns>
     </TableView>
     <Label fx:id="lblMensaje"/>

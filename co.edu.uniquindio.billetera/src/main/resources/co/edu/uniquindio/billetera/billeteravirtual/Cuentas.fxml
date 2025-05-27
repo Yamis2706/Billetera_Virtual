@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0"
+<AnchorPane prefHeight="800.0" prefWidth="900.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.CuentaController">
@@ -19,7 +19,8 @@
         <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
             <children>
                 <Label text="Gestión de Cuentas" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                <TableView fx:id="tablaCuentas" prefHeight="250.0" prefWidth="800.0">
+                <TableView fx:id="tablaCuentas" prefHeight="300.0"
+                           prefWidth="800.0">
                     <columns>
                         <TableColumn fx:id="colIdCuenta" prefWidth="120.0" text="ID Cuenta" />
                         <TableColumn fx:id="colBanco" prefWidth="120.0" text="Banco" />
@@ -33,9 +34,11 @@
                         <Label text="Banco:"/>
                         <TextField fx:id="txtBanco" promptText="Nombre del banco" prefWidth="150"/>
                         <Label text="Número:"/>
-                        <TextField fx:id="txtNumero" promptText="Número de cuenta" prefWidth="150"/>
+                        <TextField fx:id="txtNumero" promptText="Número de cuenta" prefWidth="150" editable="true"/>
                         <Label text="Tipo:"/>
                         <TextField fx:id="txtTipo" promptText="Ahorro/Corriente" prefWidth="120"/>
+                        <Label text="Saldo inicial:"/>
+                        <TextField fx:id="txtSaldoInicial" promptText="Saldo inicial" prefWidth="120"/>
                     </children>
                 </HBox>
                 <HBox spacing="10" alignment="CENTER_LEFT">
@@ -43,9 +46,6 @@
                         <Button fx:id="btnCrear" text="Crear Cuenta" onAction="#crearCuenta" prefWidth="120"/>
                         <Button fx:id="btnModificar" text="Modificar Cuenta" onAction="#modificarCuenta" prefWidth="120"/>
                         <Button fx:id="btnEliminar" text="Eliminar Cuenta" onAction="#eliminarCuenta" prefWidth="120"/>
-                        <Button fx:id="btnDepositar" text="Depositar Dinero" onAction="#agregarDinero" prefWidth="140"/>
-                        <Button fx:id="btnRetirar" text="Retirar Dinero" onAction="#retirarDinero" prefWidth="140"/>
-                        <Button fx:id="btnTransferir" text="Transferir Dinero" onAction="#transferirDinero" prefWidth="140"/>
                     </children>
                 </HBox>
                 <HBox spacing="10" alignment="CENTER_LEFT">
@@ -56,7 +56,8 @@
                     </children>
                 </HBox>
                 <Label text="Movimientos:"/>
-                <TextArea fx:id="txtMovimientos" editable="false" prefHeight="100" prefWidth="800"/>
+                <TextArea fx:id="txtMovimientos" editable="false"
+                          prefHeight="130" prefWidth="800"/>
                 <Label fx:id="lblMensaje" textFill="red"/>
             </children>
             <padding>
