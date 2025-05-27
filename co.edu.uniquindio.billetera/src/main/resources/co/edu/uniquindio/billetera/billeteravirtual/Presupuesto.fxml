@@ -4,21 +4,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="820.0"
+<AnchorPane prefHeight="500.0" prefWidth="1000.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.PresupuestoController">
     <children>
         <TableView fx:id="tablaPresupuestos" layoutX="20.0" layoutY="20.0"
-                   prefHeight="350.0" prefWidth="910.0">
+                   prefHeight="350.0" prefWidth="960.0">
             <columns>
-                <TableColumn fx:id="colId" prefWidth="100.0" text="ID"/>
+                <TableColumn fx:id="colIdPresupuesto" prefWidth="80.0" text="ID Presupuesto"/>
+                <TableColumn fx:id="colIdCuenta" prefWidth="120.0" text="ID Cuenta"/>
                 <TableColumn fx:id="colNombre" prefWidth="120.0" text="Nombre"/>
                 <TableColumn fx:id="colCategoria" prefWidth="150.0" text="Categoría"/>
                 <TableColumn fx:id="colMonto" prefWidth="140.0" text="Presupuesto"/>
                 <TableColumn fx:id="colGastado" prefWidth="140.0" text="Monto Gastado"/>
-                <TableColumn fx:id="colSaldo" prefWidth="140.0" text="Saldo"/>
-                <TableColumn fx:id="colEstado" prefWidth="140.0" text="Estado"/>
+                <TableColumn fx:id="colSaldo" prefWidth="100.0" text="Saldo"/>
+                <TableColumn fx:id="colEstado" prefWidth="110.0" text="Estado"/>
             </columns>
         </TableView>
         <HBox layoutX="20.0" layoutY="400.0" spacing="20.0">

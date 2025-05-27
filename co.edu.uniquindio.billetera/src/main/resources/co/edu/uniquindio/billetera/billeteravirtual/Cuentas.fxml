@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -19,26 +20,31 @@
         <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
             <children>
                 <Label text="Gestión de Cuentas" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
-                <TableView fx:id="tablaCuentas" prefHeight="300.0"
-                           prefWidth="800.0">
+                <TableView fx:id="tablaCuentas" prefHeight="300.0" prefWidth="800.0">
                     <columns>
-                        <TableColumn fx:id="colIdCuenta" prefWidth="120.0" text="ID Cuenta" />
-                        <TableColumn fx:id="colBanco" prefWidth="120.0" text="Banco" />
-                        <TableColumn fx:id="colNumero" prefWidth="120.0" text="Número" />
-                        <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo" />
-                        <TableColumn fx:id="colSaldo" prefWidth="120.0" text="Saldo" />
+                        <TableColumn fx:id="colIdCuenta" prefWidth="100.0" text="ID Cuenta" />
+                        <TableColumn fx:id="colBanco" prefWidth="100.0" text="Banco" />
+                        <TableColumn fx:id="colNumero" prefWidth="100.0" text="Número" />
+                        <TableColumn fx:id="colTipo" prefWidth="100.0" text="Tipo" />
+                        <TableColumn fx:id="colSaldo" prefWidth="100.0" text="Saldo" />
+                        <TableColumn fx:id="colIdUsuario" prefWidth="100.0" text="ID Usuario" />
+                        <TableColumn fx:id="colIdPresupuesto" prefWidth="120.0" text="ID Presupuesto" />
                     </columns>
                 </TableView>
                 <HBox spacing="10" alignment="CENTER_LEFT">
                     <children>
                         <Label text="Banco:"/>
-                        <TextField fx:id="txtBanco" promptText="Nombre del banco" prefWidth="150"/>
+                        <TextField fx:id="txtBanco" promptText="Nombre del banco" prefWidth="120"/>
                         <Label text="Número:"/>
-                        <TextField fx:id="txtNumero" promptText="Número de cuenta" prefWidth="150" editable="true"/>
+                        <TextField fx:id="txtNumero" promptText="Número de cuenta" prefWidth="120" editable="true"/>
                         <Label text="Tipo:"/>
-                        <TextField fx:id="txtTipo" promptText="Ahorro/Corriente" prefWidth="120"/>
+                        <TextField fx:id="txtTipo" promptText="Ahorro/Corriente" prefWidth="100"/>
                         <Label text="Saldo inicial:"/>
-                        <TextField fx:id="txtSaldoInicial" promptText="Saldo inicial" prefWidth="120"/>
+                        <TextField fx:id="txtSaldoInicial" promptText="Saldo inicial" prefWidth="100"/>
+                        <Label text="ID Usuario:"/>
+                        <TextField fx:id="txtIdUsuario" promptText="ID del usuario" prefWidth="100"/>
+                        <Label text="Presupuesto:"/>
+                        <ComboBox fx:id="cbPresupuesto" promptText="ID Presupuesto" prefWidth="120"/>
                     </children>
                 </HBox>
                 <HBox spacing="10" alignment="CENTER_LEFT">
@@ -56,8 +62,7 @@
                     </children>
                 </HBox>
                 <Label text="Movimientos:"/>
-                <TextArea fx:id="txtMovimientos" editable="false"
-                          prefHeight="130" prefWidth="800"/>
+                <TextArea fx:id="txtMovimientos" editable="false" prefHeight="130" prefWidth="800"/>
                 <Label fx:id="lblMensaje" textFill="red"/>
             </children>
             <padding>

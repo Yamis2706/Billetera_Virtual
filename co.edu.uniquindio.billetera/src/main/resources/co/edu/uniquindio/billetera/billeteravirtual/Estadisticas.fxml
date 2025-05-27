@@ -5,20 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.EstadisticasController" prefWidth="900" prefHeight="600">
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.EstadisticasController" prefWidth="1000" prefHeight="700">
     <children>
         <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.bottomAnchor="10">
             <children>
                 <Label text="Estadísticas" style="-fx-font-size: 24px; -fx-font-weight: bold;" />
-                <HBox spacing="15" alignment="CENTER">
-                    <Label text="Usuario:"/>
-                    <ComboBox fx:id="comboUsuarios" promptText="Todos"/>
-                    <Label text="Desde:"/>
-                    <DatePicker fx:id="dateDesde"/>
-                    <Label text="Hasta:"/>
-                    <DatePicker fx:id="dateHasta"/>
-                    <Button text="Consultar" onAction="#consultarEstadisticas"/>
-                </HBox>
                 <HBox spacing="30" alignment="CENTER">
                     <VBox spacing="10" alignment="CENTER">
                         <Label text="Gastos más comunes"/>
@@ -36,10 +27,18 @@
                         </BarChart>
                     </VBox>
                 </HBox>
-                <HBox spacing="20" alignment="CENTER">
-                    <Label text="Saldo promedio de usuarios:" style="-fx-font-size: 16px;"/>
+                <VBox spacing="10" alignment="CENTER">
+                    <Label text="Saldo promedio de usuarios"/>
                     <Label fx:id="lblSaldoPromedio" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
-                </HBox>
+                    <BarChart fx:id="barSaldoPromedio" prefWidth="750" prefHeight="300">
+                        <xAxis>
+                            <CategoryAxis label="Usuario"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis label="Saldo Promedio"/>
+                        </yAxis>
+                    </BarChart>
+                </VBox>
             </children>
             <padding>
                 <Insets top="10" right="10" bottom="10" left="10"/>

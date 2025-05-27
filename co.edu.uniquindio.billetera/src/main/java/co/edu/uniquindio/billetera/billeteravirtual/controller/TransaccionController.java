@@ -3,6 +3,7 @@ package co.edu.uniquindio.billetera.billeteravirtual.controller;
 import co.edu.uniquindio.billetera.billeteravirtual.model.Categoria;
 import co.edu.uniquindio.billetera.billeteravirtual.model.Cuenta;
 import co.edu.uniquindio.billetera.billeteravirtual.model.Transaccion;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Presupuesto;
 import co.edu.uniquindio.billetera.billeteravirtual.utils.DataUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -25,6 +26,7 @@ public class TransaccionController {
     private static final String TIPO_DEPOSITO = "Depósito";
     private static final String TIPO_TRANSFERENCIA = "Transferencia";
     private static final String TIPO_RETIRO = "Retiro";
+    private static final String TIPO_GASTO = "Gasto"; // Si manejas "Gasto" como tipo
 
     private static final String MSG_CAMPOS_REQUERIDOS = "Por favor complete todos los campos requeridos para realizar la transacción.";
     private static final String MSG_MONTO_INVALIDO = "Monto inválido. Ingrese solo números.";
@@ -59,7 +61,7 @@ public class TransaccionController {
         try {
             cargarCuentasEnCombos();
             cargarCategoriasEnCombo();
-            cbTipoTransaccion.setItems(FXCollections.observableArrayList(TIPO_DEPOSITO, TIPO_TRANSFERENCIA, TIPO_RETIRO));
+            cbTipoTransaccion.setItems(FXCollections.observableArrayList(TIPO_DEPOSITO, TIPO_TRANSFERENCIA, TIPO_RETIRO, TIPO_GASTO));
 
             cbTipoTransaccion.valueProperty().addListener((obs, oldVal, newVal) -> {
                 if (TIPO_TRANSFERENCIA.equals(newVal)) {
@@ -132,6 +134,12 @@ public class TransaccionController {
                     mostrarMensaje("Transferencia realizada exitosamente de la cuenta " + origen.getNumero() +
                             " a la cuenta " + destino.getNumero() + ".", true);
                 }
+                case TIPO_GASTO -> {
+                    origen.retirarDinero(monto);
+                    registrarTransaccion(TIPO_GASTO, origen, null, monto, categoria, descripcion);
+                    descontarDePresupuesto(origen, categoria, monto);
+                    mostrarMensaje("Gasto registrado y presupuesto actualizado.", true);
+                }
             }
             DataUtil.guardarCuentas(listaCuentas);
             sincronizarCuentas();
@@ -143,6 +151,26 @@ public class TransaccionController {
             mostrarMensaje("Error: " + e.getMessage(), false);
         } catch (Exception e) {
             mostrarMensaje(MSG_ERROR_UNEXPECTED + e.getMessage(), false);
+        }
+    }
+
+    /**
+     * Descuenta el monto del presupuesto correspondiente a la cuenta y categoría.
+     */
+    private void descontarDePresupuesto(Cuenta cuenta, Categoria categoria, double monto) {
+        List<Presupuesto> presupuestos = DataUtil.cargarPresupuestos();
+        boolean actualizado = false;
+        for (Presupuesto p : presupuestos) {
+            if (p.getIdCuenta().equals(cuenta.getIdCuenta())
+                    && p.getCategoria() != null
+                    && p.getCategoria().getNombre().equalsIgnoreCase(categoria.getNombre())) {
+                p.setMontoGastado(p.getMontoGastado() + monto);
+                actualizado = true;
+                break;
+            }
+        }
+        if (actualizado) {
+            DataUtil.guardarPresupuestos(presupuestos);
         }
     }
 
@@ -173,7 +201,7 @@ public class TransaccionController {
             mostrarMensaje(MSG_MONTO_MAYOR_CERO, false);
             return false;
         }
-        if (TIPO_RETIRO.equals(tipo) && monto > origen.getSaldo()) {
+        if ((TIPO_RETIRO.equals(tipo) || TIPO_GASTO.equals(tipo)) && monto > origen.getSaldo()) {
             mostrarMensaje(String.format(MSG_MONTO_SUPERA_SALDO, "retirar", origen.getSaldo()), false);
             return false;
         }

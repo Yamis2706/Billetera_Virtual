@@ -1,6 +1,5 @@
 package co.edu.uniquindio.billetera.billeteravirtual.utils;
 
-
 import co.edu.uniquindio.billetera.billeteravirtual.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -163,10 +162,11 @@ public class DataUtil {
 
             for (int j = 1; j <= 3; j++) {
                 Cuenta cuenta = new Cuenta(
-                        "C" + cedulas[i] + j,
-                        "Cuenta " + j + " de " + nombres[i],
-                        String.valueOf(2000 * j + 500 * i),
-                        cedulas[i]
+                        "Banco Ejemplo", // nombre del banco
+                        "C" + cedulas[i] + j, // número de cuenta
+                        "Ahorros", // tipo de cuenta
+                        2000 * j + 500 * i, // saldo inicial como double
+                        cedulas[i] // idUsuario
                 );
                 cuentas.add(cuenta);
             }
@@ -190,9 +190,10 @@ public class DataUtil {
             for (int p = 1; p <= 5; p++) {
                 Presupuesto presupuesto = new Presupuesto(
                         UUID.randomUUID().toString(),
+                        cuentas.get(0).getNumero(), // idCuenta asociado a la primera cuenta del usuario
                         "Presupuesto " + p + " de " + nombres[i],
-                        1000 * p + 200 * i,
-                        0,
+                        1000.0 * p + 200.0 * i, // double
+                        0.0, // double
                         categorias.get((i + p) % categorias.size())
                 );
                 presupuestos.add(presupuesto);
@@ -335,5 +336,15 @@ public class DataUtil {
                 }
             }
         }
+    }
+
+    public static Usuario buscarUsuarioPorId(String idUsuario) {
+        List<Usuario> usuarios = cargarUsuarios();
+        for (Usuario u : usuarios) {
+            if (u.getCedula().equals(idUsuario)) {
+                return u;
+            }
+        }
+        return null;
     }
 }

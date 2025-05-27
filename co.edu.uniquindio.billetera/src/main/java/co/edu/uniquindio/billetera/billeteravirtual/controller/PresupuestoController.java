@@ -3,6 +3,8 @@ package co.edu.uniquindio.billetera.billeteravirtual.controller;
 import co.edu.uniquindio.billetera.billeteravirtual.model.Categoria;
 import co.edu.uniquindio.billetera.billeteravirtual.model.Presupuesto;
 import co.edu.uniquindio.billetera.billeteravirtual.model.Transaccion;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Cuenta;
+import co.edu.uniquindio.billetera.billeteravirtual.model.Usuario;
 import co.edu.uniquindio.billetera.billeteravirtual.utils.DataUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,18 +13,19 @@ import javafx.scene.control.*;
 import javafx.util.StringConverter;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class PresupuestoController {
 
     @FXML private TableView<Presupuesto> tablaPresupuestos;
+    @FXML private TableColumn<Presupuesto, String> colIdPresupuesto;
+    @FXML private TableColumn<Presupuesto, String> colIdCuenta;
     @FXML private TableColumn<Presupuesto, String> colNombre;
     @FXML private TableColumn<Presupuesto, String> colCategoria;
     @FXML private TableColumn<Presupuesto, Double> colMonto;
     @FXML private TableColumn<Presupuesto, Double> colGastado;
     @FXML private TableColumn<Presupuesto, Double> colSaldo;
     @FXML private TableColumn<Presupuesto, String> colEstado;
-    @FXML private TableColumn<Presupuesto, Number> colId;
     @FXML private TextField txtNombre, txtMonto, txtGastado;
     @FXML private ComboBox<Categoria> cbCategoria;
     @FXML private Button btnCrear, btnModificar, btnEliminar;
@@ -35,9 +38,8 @@ public class PresupuestoController {
         listaPresupuestos = FXCollections.observableArrayList(DataUtil.cargarPresupuestos());
         tablaPresupuestos.setItems(listaPresupuestos);
 
-        colId.setCellValueFactory(cellData ->
-                new javafx.beans.property.SimpleIntegerProperty(listaPresupuestos.indexOf(cellData.getValue()) + 1)
-        );
+        colIdPresupuesto.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getIdPresupuesto()));
+        colIdCuenta.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getIdCuenta()));
         colNombre.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(data.getValue().getNombre()));
         colCategoria.setCellValueFactory(data -> new javafx.beans.property.SimpleStringProperty(
                 data.getValue().getCategoria() != null ? data.getValue().getCategoria().getNombre() : ""));
@@ -66,7 +68,7 @@ public class PresupuestoController {
 
     private void recargarCategorias() {
         List<Categoria> categorias = DataUtil.cargarCategorias();
-        cbCategoria.getItems().setAll(categorias);
+        cbCategoria.setItems(FXCollections.observableArrayList(categorias));
         cbCategoria.setConverter(new StringConverter<>() {
             @Override
             public String toString(Categoria object) {
@@ -103,6 +105,38 @@ public class PresupuestoController {
         }
     }
 
+    private String generarIdPresupuesto() {
+        int max = listaPresupuestos.stream()
+                .map(Presupuesto::getIdPresupuesto)
+                .filter(id -> id.matches("\\d{3}"))
+                .mapToInt(Integer::parseInt)
+                .max()
+                .orElse(0);
+        return String.format("%03d", max + 1);
+    }
+
+    // --- Métodos auxiliares para cuentas ---
+    private Cuenta buscarCuentaPorNumero(String numero) {
+        List<Cuenta> cuentas = DataUtil.cargarCuentas();
+        for (Cuenta c : cuentas) {
+            if (c.getNumero().equals(numero)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    private void guardarCuentaActualizada(Cuenta cuenta) {
+        List<Cuenta> cuentas = DataUtil.cargarCuentas();
+        for (int i = 0; i < cuentas.size(); i++) {
+            if (cuentas.get(i).getNumero().equals(cuenta.getNumero())) {
+                cuentas.set(i, cuenta);
+                break;
+            }
+        }
+        DataUtil.guardarCuentas(cuentas);
+    }
+
     @FXML
     private void crearPresupuesto() {
         try {
@@ -116,14 +150,18 @@ public class PresupuestoController {
                 return;
             }
 
-            boolean existe = listaPresupuestos.stream()
-                    .anyMatch(p -> p.getCategoria() != null && p.getCategoria().getId().equals(categoria.getId()));
-            if (existe) {
-                lblMensaje.setText("Ya existe un presupuesto para esta categoría.");
-                return;
-            }
+            // No se asocia cuenta aquí porque ya no hay ComboBox de cuenta
 
-            Presupuesto p = new Presupuesto(UUID.randomUUID().toString(), nombre, monto, gastado, categoria);
+            String idPresupuesto = generarIdPresupuesto();
+
+            Presupuesto p = new Presupuesto(
+                    idPresupuesto,
+                    "", // idCuenta vacío o puedes ajustar según tu modelo
+                    nombre,
+                    monto,
+                    gastado,
+                    categoria
+            );
             listaPresupuestos.add(p);
             DataUtil.guardarPresupuestos(new java.util.ArrayList<>(listaPresupuestos));
             limpiarCampos();
@@ -147,12 +185,19 @@ public class PresupuestoController {
         Presupuesto seleccionado = tablaPresupuestos.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
             try {
+                double montoAnterior = seleccionado.getMontoTotal();
+                double nuevoMonto = Double.parseDouble(txtMonto.getText());
+                double diferencia = nuevoMonto - montoAnterior;
+
+                // No se asocia cuenta aquí porque ya no hay ComboBox de cuenta
+
                 seleccionado.setNombre(txtNombre.getText());
-                seleccionado.setMontoTotal(Double.parseDouble(txtMonto.getText()));
+                seleccionado.setMontoTotal(nuevoMonto);
                 double gastado = txtGastado.getText().isEmpty() ? 0 : Double.parseDouble(txtGastado.getText());
                 seleccionado.setMontoGastado(gastado);
                 Categoria categoria = cbCategoria.getValue();
                 seleccionado.setCategoria(categoria);
+
                 DataUtil.guardarPresupuestos(new java.util.ArrayList<>(listaPresupuestos));
                 limpiarCampos();
 
