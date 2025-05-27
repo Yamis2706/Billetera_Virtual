@@ -5,33 +5,63 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="800.0"
+<AnchorPane prefHeight="500.0" prefWidth="900.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.CuentaController">
     <children>
-        <TableView fx:id="tablaCuentas" layoutX="20.0" layoutY="20.0" prefHeight="250.0" prefWidth="760.0">
-            <columns>
-                <TableColumn fx:id="colNumero" prefWidth="150.0" text="Número" />
-                <TableColumn fx:id="colBanco" prefWidth="150.0" text="Banco" />
-                <TableColumn fx:id="colTipo" prefWidth="150.0" text="Tipo" />
-                <TableColumn fx:id="colSaldo" prefWidth="150.0" text="Saldo" />
-            </columns>
-        </TableView>
-        <HBox layoutX="20.0" layoutY="290.0" spacing="20.0">
+        <VBox spacing="10" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
             <children>
-                <Button fx:id="btnDepositar" text="Depositar Dinero"
-                        onAction="#agregarDinero" prefWidth="150.0"/>
-                <Button fx:id="btnRetirar" text="Retirar Dinero" onAction="#retirarDinero" prefWidth="150.0"/>
-                <Button fx:id="btnTransferir" text="Transferir Dinero" onAction="#transferirDinero" prefWidth="150.0"/>
+                <Label text="Gestión de Cuentas" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+                <TableView fx:id="tablaCuentas" prefHeight="250.0" prefWidth="800.0">
+                    <columns>
+                        <TableColumn fx:id="colIdCuenta" prefWidth="120.0" text="ID Cuenta" />
+                        <TableColumn fx:id="colBanco" prefWidth="120.0" text="Banco" />
+                        <TableColumn fx:id="colNumero" prefWidth="120.0" text="Número" />
+                        <TableColumn fx:id="colTipo" prefWidth="120.0" text="Tipo" />
+                        <TableColumn fx:id="colSaldo" prefWidth="120.0" text="Saldo" />
+                    </columns>
+                </TableView>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="Banco:"/>
+                        <TextField fx:id="txtBanco" promptText="Nombre del banco" prefWidth="150"/>
+                        <Label text="Número:"/>
+                        <TextField fx:id="txtNumero" promptText="Número de cuenta" prefWidth="150"/>
+                        <Label text="Tipo:"/>
+                        <TextField fx:id="txtTipo" promptText="Ahorro/Corriente" prefWidth="120"/>
+                    </children>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <children>
+                        <Button fx:id="btnCrear" text="Crear Cuenta" onAction="#crearCuenta" prefWidth="120"/>
+                        <Button fx:id="btnModificar" text="Modificar Cuenta" onAction="#modificarCuenta" prefWidth="120"/>
+                        <Button fx:id="btnEliminar" text="Eliminar Cuenta" onAction="#eliminarCuenta" prefWidth="120"/>
+                        <Button fx:id="btnDepositar" text="Depositar Dinero" onAction="#agregarDinero" prefWidth="140"/>
+                        <Button fx:id="btnRetirar" text="Retirar Dinero" onAction="#retirarDinero" prefWidth="140"/>
+                        <Button fx:id="btnTransferir" text="Transferir Dinero" onAction="#transferirDinero" prefWidth="140"/>
+                    </children>
+                </HBox>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="Consultar por ID o Número:"/>
+                        <TextField fx:id="txtConsulta" promptText="ID o Número" prefWidth="150"/>
+                        <Button fx:id="btnConsultar" text="Consultar" onAction="#consultarCuenta" prefWidth="100"/>
+                    </children>
+                </HBox>
+                <Label text="Movimientos:"/>
+                <TextArea fx:id="txtMovimientos" editable="false" prefHeight="100" prefWidth="800"/>
+                <Label fx:id="lblMensaje" textFill="red"/>
             </children>
             <padding>
-                <Insets left="0.0" top="10.0" right="0.0" bottom="0.0"/>
+                <Insets top="10" right="10" bottom="10" left="10"/>
             </padding>
-        </HBox>
-        <Label fx:id="lblMensaje" layoutX="20.0" layoutY="350.0" textFill="red"/>
+        </VBox>
     </children>
 </AnchorPane>

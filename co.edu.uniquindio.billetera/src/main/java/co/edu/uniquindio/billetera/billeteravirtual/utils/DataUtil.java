@@ -17,7 +17,6 @@ public class DataUtil {
     private static final String ARCHIVO_PRESUPUESTOS = "presupuestos.dat";
     private static final String ARCHIVO_CATEGORIAS = "categorias.dat";
 
-    // Variable estática para el usuario logueado
     private static Usuario usuarioActual;
 
     public static void setUsuarioActual(Usuario usuario) {
@@ -28,10 +27,9 @@ public class DataUtil {
         return usuarioActual;
     }
 
-    // Métodos genéricos de guardado/carga
     private static <T> void guardarLista(List<T> lista, String archivo) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(archivo))) {
-            oos.writeObject(lista);
+            oos.writeObject(new ArrayList<>(lista));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +43,6 @@ public class DataUtil {
         }
     }
 
-    // Métodos específicos
     public static List<Usuario> cargarUsuarios() {
         return cargarLista(ARCHIVO_USUARIOS);
     }
@@ -59,7 +56,7 @@ public class DataUtil {
     }
 
     public static void guardarTransacciones(List<Transaccion> transacciones) {
-        guardarLista(new ArrayList<>(transacciones), ARCHIVO_TRANSACCIONES);
+        guardarLista(transacciones, ARCHIVO_TRANSACCIONES);
     }
 
     public static List<Cuenta> cargarCuentas() {
@@ -82,7 +79,6 @@ public class DataUtil {
         guardarLista(categorias, ARCHIVO_CATEGORIAS);
     }
 
-    // Método corregido: lista mutable por defecto
     public static List<Categoria> cargarCategorias() {
         List<Categoria> categorias = cargarLista(ARCHIVO_CATEGORIAS);
         if (categorias == null || categorias.isEmpty()) {
@@ -95,7 +91,6 @@ public class DataUtil {
             ));
             guardarCategorias(categorias);
         } else if (!(categorias instanceof ArrayList)) {
-            // Asegura que siempre sea mutable
             categorias = new ArrayList<>(categorias);
         }
         return categorias;
@@ -123,7 +118,6 @@ public class DataUtil {
         categorias.removeIf(c -> c.getId().equals(idCategoria));
         guardarCategorias(categorias);
 
-        // Opcional: Eliminar la categoría de las transacciones existentes
         List<Transaccion> transacciones = cargarTransacciones();
         for (Transaccion t : transacciones) {
             if (t.getCategoria() != null && t.getCategoria().getId().equals(idCategoria)) {
@@ -137,12 +131,10 @@ public class DataUtil {
         return cargarCategorias();
     }
 
-    // Inicialización de datos quemados
     public static void inicializarDatos() {
         File f = new File(ARCHIVO_USUARIOS);
-        if (f.exists()) return; // Ya inicializado
+        if (f.exists()) return;
 
-        // Asegura que existan categorías y las carga
         List<Categoria> categorias = cargarCategorias();
 
         List<Usuario> usuarios = new ArrayList<>();
@@ -162,7 +154,6 @@ public class DataUtil {
             List<Transaccion> transacciones = new ArrayList<>();
             List<Presupuesto> presupuestos = new ArrayList<>();
 
-            // 3 cuentas por usuario
             for (int j = 1; j <= 3; j++) {
                 Cuenta cuenta = new Cuenta(
                         "C" + cedulas[i] + j,
@@ -173,7 +164,6 @@ public class DataUtil {
                 cuentas.add(cuenta);
             }
 
-            // 5 transacciones por usuario, asignadas cíclicamente a sus cuentas
             for (int k = 0; k < 5; k++) {
                 Cuenta cuenta = cuentas.get(k % cuentas.size());
                 Transaccion t = new Transaccion(
@@ -190,15 +180,13 @@ public class DataUtil {
                 transacciones.add(t);
             }
 
-            // 5 presupuestos por usuario
-            // 5 presupuestos por usuario
             for (int p = 1; p <= 5; p++) {
                 Presupuesto presupuesto = new Presupuesto(
-                        UUID.randomUUID().toString(), // idPresupuesto único
-                        "Presupuesto " + p + " de " + nombres[i], // nombre
-                        1000 * p + 200 * i, // montoTotal
-                        0, // montoGastado inicial
-                        categorias.get((i + p) % categorias.size()) // categoría asociada
+                        UUID.randomUUID().toString(),
+                        "Presupuesto " + p + " de " + nombres[i],
+                        1000 * p + 200 * i,
+                        0,
+                        categorias.get((i + p) % categorias.size())
                 );
                 presupuestos.add(presupuesto);
             }
@@ -248,7 +236,6 @@ public class DataUtil {
         return null;
     }
 
-    // Cargar transacciones: reconstruye el ObservableList
     public static ObservableList<Transaccion> cargarTransaccionesObservable() {
         List<Transaccion> lista = cargarTransacciones();
         return javafx.collections.FXCollections.observableArrayList(lista);
