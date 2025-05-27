@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<AnchorPane xmlns="http://javafx.com/javafx/23.0.1"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.AdministradorController"
-            prefWidth="900" prefHeight="600">
-    <children>
-        <TableView fx:id="tablaUsuarios" layoutX="20" layoutY="20" prefWidth="600" prefHeight="400">
-            <columns>
-                <TableColumn fx:id="colNombre" text="Nombre" prefWidth="100"/>
-                <TableColumn fx:id="colCorreo" text="Correo" prefWidth="150"/>
-                <TableColumn fx:id="colCedula" text="Cédula" prefWidth="100"/>
-                <TableColumn fx:id="colTelefono" text="Teléfono" prefWidth="100"/>
-                <TableColumn fx:id="colDireccion" text="Dirección" prefWidth="150"/>
-            </columns>
-        </TableView>
-        <Button fx:id="btnAgregar" text="Agregar" layoutX="650" layoutY="50" onAction="#agregarUsuario"/>
-        <Button fx:id="btnEditar" text="Editar" layoutX="650" layoutY="100" onAction="#editarUsuario"/>
-        <Button fx:id="btnEliminar" text="Eliminar" layoutX="650" layoutY="150" onAction="#eliminarUsuario"/>
-        <Label fx:id="lblMensaje" layoutX="20" layoutY="430" textFill="red"/>
-        <Label text="Total de usuarios:" layoutX="650" layoutY="250"/>
-        <Label fx:id="lblTotalUsuarios" layoutX="770" layoutY="250"/>
-    </children>
-</AnchorPane>
+<VBox spacing="10" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.billetera.billeteravirtual.controller.UsuarioAdminController">
+    <Label text="Gestión de Usuarios" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+    <TableView fx:id="tablaUsuarios" prefHeight="250">
+        <columns>
+            <TableColumn fx:id="colId" text="ID" prefWidth="80"/>
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="150"/>
+            <TableColumn fx:id="colCorreo" text="Correo" prefWidth="180"/>
+            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="80"/>
+        </columns>
+    </TableView>
+    <HBox spacing="10">
+        <TextField fx:id="txtNombre" promptText="Nombre"/>
+        <TextField fx:id="txtCorreo" promptText="Correo"/>
+        <ComboBox fx:id="cbTipo" promptText="Tipo" prefWidth="100"/>
+    </HBox>
+    <HBox spacing="10">
+        <Button text="Crear" onAction="#crearUsuario"/>
+        <Button text="Actualizar" onAction="#actualizarUsuario"/>
+        <Button text="Eliminar" onAction="#eliminarUsuario"/>
+    </HBox>
+    <Label fx:id="lblMensaje" textFill="red"/>
+</VBox>

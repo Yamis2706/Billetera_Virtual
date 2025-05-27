@@ -5,19 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfb8ed30-1691-424b-a9ce-9ff7558afa72" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/BilleteravirtualAppController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/UsuarioAdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cuentas.dat" beforeDir="false" afterPath="$PROJECT_DIR$/cuentas.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/presupuestos.dat" beforeDir="false" afterPath="$PROJECT_DIR$/presupuestos.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/CategoriaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/CategoriaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/CuentaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/CuentaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/TransaccionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/controller/TransaccionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Cuenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Cuenta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Transaccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Transaccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/decorator/TransaccionDecorator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/patrones/estructurales/decorator/TransaccionDecorator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Cuentas.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Cuentas.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Presupuesto.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Presupuesto.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Transacciones.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/Transacciones.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transacciones.dat" beforeDir="false" afterPath="$PROJECT_DIR$/transacciones.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/model/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/utils/DataUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/co/edu/uniquindio/billetera/billeteravirtual/utils/DataUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApp.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/BilleteraVirtualApp.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/UsuariosAdmin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/co/edu/uniquindio/billetera/billeteravirtual/UsuariosAdmin.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,7 +128,7 @@
       <updated>1748206160745</updated>
       <workItem from="1748206161704" duration="17052000" />
       <workItem from="1748225766525" duration="26638000" />
-      <workItem from="1748286735160" duration="50244000" />
+      <workItem from="1748286735160" duration="51831000" />
     </task>
     <servers />
   </component>

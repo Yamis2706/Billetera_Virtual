@@ -15,6 +15,8 @@ public class Usuario implements Sujeto, Serializable {
     private String telefono;
     private String direccion;
     private String clave;
+    private String tipo;// "Admin" o "Cliente"
+
 
     // Lista de observadores
     private final List<Observer> observadores = new ArrayList<>();
@@ -23,35 +25,17 @@ public class Usuario implements Sujeto, Serializable {
     private List<Transaccion> transacciones = new ArrayList<>();
     private List<Presupuesto> presupuestos = new ArrayList<>();
 
-    // Getter para cuentas
-    public List<Cuenta> getCuentas() {
-        return cuentas;
-    }
+    // Getters y setters para listas
+    public List<Cuenta> getCuentas() { return cuentas; }
+    public void setCuentas(List<Cuenta> cuentas) { this.cuentas = cuentas; }
 
-    // Getter para transacciones
-    public List<Transaccion> getTransacciones() {
-        return transacciones;
-    }
+    public List<Transaccion> getTransacciones() { return transacciones; }
+    public void setTransacciones(List<Transaccion> transacciones) { this.transacciones = transacciones; }
 
-    // Getter para presupuestos
-    public List<Presupuesto> getPresupuestos() {
-        return presupuestos;
-    }
+    public List<Presupuesto> getPresupuestos() { return presupuestos; }
+    public void setPresupuestos(List<Presupuesto> presupuestos) { this.presupuestos = presupuestos; }
 
-    // Setters agregados
-    public void setCuentas(List<Cuenta> cuentas) {
-        this.cuentas = cuentas;
-    }
-
-    public void setTransacciones(List<Transaccion> transacciones) {
-        this.transacciones = transacciones;
-    }
-
-    public void setPresupuestos(List<Presupuesto> presupuestos) {
-        this.presupuestos = presupuestos;
-    }
-
-    // Implementación del método de Sujeto
+    // Métodos Observer
     @Override
     public void agregarObservador(Observer observer) {
         if (observer != null && !observadores.contains(observer)) {
@@ -68,7 +52,9 @@ public class Usuario implements Sujeto, Serializable {
 
     @Override
     public void notificarObservadores(String mensaje) {
-        // Implementación pendiente
+        for (Observer obs : observadores) {
+            obs.actualizar(mensaje);
+        }
     }
 
     // Builder
@@ -109,13 +95,17 @@ public class Usuario implements Sujeto, Serializable {
             return this;
         }
 
+        public Builder tipo(String tipo) {
+            usuario.tipo = tipo;
+            return this;
+        }
+
         public Usuario build() {
             return usuario;
         }
     }
 
     // Getters y setters
-
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
@@ -133,4 +123,7 @@ public class Usuario implements Sujeto, Serializable {
 
     public String getClave() { return clave; }
     public void setClave(String clave) { this.clave = clave; }
+
+    public String getTipo() { return tipo; }
+    public void setTipo(String tipo) { this.tipo = tipo; }
 }

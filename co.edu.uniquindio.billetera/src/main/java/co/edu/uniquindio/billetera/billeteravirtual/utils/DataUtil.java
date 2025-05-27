@@ -1,6 +1,8 @@
 package co.edu.uniquindio.billetera.billeteravirtual.utils;
 
+
 import co.edu.uniquindio.billetera.billeteravirtual.model.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.*;
@@ -43,14 +45,24 @@ public class DataUtil {
         }
     }
 
+    // Métodos para usuarios
     public static List<Usuario> cargarUsuarios() {
         return cargarLista(ARCHIVO_USUARIOS);
+    }
+
+    public static ObservableList<Usuario> cargarUsuariosObservable() {
+        return FXCollections.observableArrayList(cargarUsuarios());
     }
 
     public static void guardarUsuarios(List<Usuario> usuarios) {
         guardarLista(usuarios, ARCHIVO_USUARIOS);
     }
 
+    public static void guardarUsuariosObservable(ObservableList<Usuario> usuarios) {
+        guardarUsuarios(new ArrayList<>(usuarios));
+    }
+
+    // Métodos para transacciones
     public static List<Transaccion> cargarTransacciones() {
         return cargarLista(ARCHIVO_TRANSACCIONES);
     }
@@ -59,6 +71,7 @@ public class DataUtil {
         guardarLista(transacciones, ARCHIVO_TRANSACCIONES);
     }
 
+    // Métodos para cuentas
     public static List<Cuenta> cargarCuentas() {
         return cargarLista(ARCHIVO_CUENTAS);
     }
@@ -67,6 +80,7 @@ public class DataUtil {
         guardarLista(cuentas, ARCHIVO_CUENTAS);
     }
 
+    // Métodos para presupuestos
     public static List<Presupuesto> cargarPresupuestos() {
         return cargarLista(ARCHIVO_PRESUPUESTOS);
     }
@@ -75,6 +89,7 @@ public class DataUtil {
         guardarLista(presupuestos, ARCHIVO_PRESUPUESTOS);
     }
 
+    // Métodos para categorías
     public static void guardarCategorias(List<Categoria> categorias) {
         guardarLista(categorias, ARCHIVO_CATEGORIAS);
     }
@@ -117,8 +132,6 @@ public class DataUtil {
         List<Categoria> categorias = cargarCategorias();
         categorias.removeIf(c -> c.getId().equals(idCategoria));
         guardarCategorias(categorias);
-
-        // No se puede limpiar la categoría en transacciones porque Transaccion no tiene categoría
     }
 
     public static List<Categoria> listarCategorias() {
@@ -192,6 +205,7 @@ public class DataUtil {
                     .direccion(direcciones[i])
                     .correo(correos[i])
                     .clave(claves[i])
+                    .tipo("Cliente")
                     .build();
 
             usuario.setCuentas(cuentas);
@@ -232,7 +246,7 @@ public class DataUtil {
 
     public static ObservableList<Transaccion> cargarTransaccionesObservable() {
         List<Transaccion> lista = cargarTransacciones();
-        return javafx.collections.FXCollections.observableArrayList(lista);
+        return FXCollections.observableArrayList(lista);
     }
 
     // --- Métodos para sincronizar cuentas y transacciones ---
