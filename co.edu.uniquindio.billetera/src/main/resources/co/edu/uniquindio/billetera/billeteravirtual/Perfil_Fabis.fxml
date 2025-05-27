@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.Label?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" prefWidth="400" prefHeight="200">
+    <children>
+        <Label text="Perfil de Fabis" layoutX="100" layoutY="80" style="-fx-font-size: 18px;"/>
+    </children>
+</AnchorPane>

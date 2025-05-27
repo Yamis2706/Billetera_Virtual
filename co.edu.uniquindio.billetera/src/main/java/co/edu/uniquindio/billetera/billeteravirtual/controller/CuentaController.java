@@ -1,4 +1,3 @@
-
 package co.edu.uniquindio.billetera.billeteravirtual.controller;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -35,7 +34,6 @@ public class CuentaController {
     @FXML private TableColumn<Cuenta, String> colTipo;
     @FXML private TableColumn<Cuenta, String> colSaldo;
 
-    // Referencia estática para refresco externo
     private static TableView<Cuenta> tablaCuentasStatic;
 
     @FXML
@@ -50,6 +48,14 @@ public class CuentaController {
         colNumero.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNumero()));
         colTipo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTipo()));
         colSaldo.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getSaldo())));
+
+        // Listener para cargar datos al seleccionar una cuenta
+        tablaCuentas.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
+            if (newSel != null) {
+                mostrarCuenta(newSel);
+                txtNumero.setDisable(true); // No permitir cambiar el número
+            }
+        });
     }
 
     public static void refrescarTablaCuentas() {
@@ -72,6 +78,11 @@ public class CuentaController {
             return;
         }
 
+        if (listaCuentas.stream().anyMatch(c -> c.getNumero().equals(numero))) {
+            lblMensaje.setText("Ya existe una cuenta con ese número.");
+            return;
+        }
+
         double saldoInicial;
         try {
             saldoInicial = Double.parseDouble(saldoStr);
@@ -84,7 +95,7 @@ public class CuentaController {
             return;
         }
 
-        Cuenta cuenta = new Cuenta(banco, numero, tipo, saldoInicial); // Debe existir este constructor
+        Cuenta cuenta = new Cuenta(banco, numero, tipo, saldoInicial);
         listaCuentas.add(cuenta);
         DataUtil.guardarCuentas(listaCuentas);
         limpiarCampos();
@@ -100,11 +111,10 @@ public class CuentaController {
             return;
         }
         String banco = txtBanco.getText();
-        String numero = txtNumero.getText();
         String tipo = txtTipo.getText();
         String saldoStr = txtSaldoInicial.getText();
 
-        if (banco.isEmpty() || numero.isEmpty() || tipo.isEmpty() || saldoStr.isEmpty()) {
+        if (banco.isEmpty() || tipo.isEmpty() || saldoStr.isEmpty()) {
             lblMensaje.setText("Todos los campos son obligatorios.");
             return;
         }
@@ -122,9 +132,8 @@ public class CuentaController {
         }
 
         seleccionada.setBanco(banco);
-        seleccionada.setNumero(numero);
         seleccionada.setTipo(tipo);
-        seleccionada.setSaldo(saldo); // Debe existir este setter
+        seleccionada.setSaldo(saldo);
         DataUtil.guardarCuentas(listaCuentas);
         limpiarCampos();
         lblMensaje.setText("Cuenta modificada correctamente.");
@@ -350,6 +359,7 @@ public class CuentaController {
         txtNumero.clear();
         txtTipo.clear();
         txtSaldoInicial.clear();
+        txtNumero.setDisable(false);
         tablaCuentas.getSelectionModel().clearSelection();
     }
 

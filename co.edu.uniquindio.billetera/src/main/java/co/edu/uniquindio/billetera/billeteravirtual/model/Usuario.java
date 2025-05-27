@@ -15,8 +15,7 @@ public class Usuario implements Sujeto, Serializable {
     private String telefono;
     private String direccion;
     private String clave;
-    private String tipo;// "Admin" o "Cliente"
-
+    private String tipo; // "Admin" o "Cliente"
 
     // Lista de observadores
     private final List<Observer> observadores = new ArrayList<>();
@@ -24,6 +23,18 @@ public class Usuario implements Sujeto, Serializable {
     private List<Cuenta> cuentas = new ArrayList<>();
     private List<Transaccion> transacciones = new ArrayList<>();
     private List<Presupuesto> presupuestos = new ArrayList<>();
+
+    // Constructor sin argumentos
+    public Usuario() {}
+
+    // Constructor con argumentos principales
+    public Usuario(String cedula, String nombre, String correo, String telefono) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
+        this.tipo = "Usuario";
+    }
 
     // Getters y setters para listas
     public List<Cuenta> getCuentas() { return cuentas; }
