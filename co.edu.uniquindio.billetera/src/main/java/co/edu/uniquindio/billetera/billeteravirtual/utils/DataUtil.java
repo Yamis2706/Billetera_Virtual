@@ -191,12 +191,14 @@ public class DataUtil {
             }
 
             // 5 presupuestos por usuario
+            // 5 presupuestos por usuario
             for (int p = 1; p <= 5; p++) {
                 Presupuesto presupuesto = new Presupuesto(
-                        "Presupuesto " + p + " de " + nombres[i],
-                        1000 * p + 200 * i,
-                        LocalDate.now().minusMonths(p),
-                        LocalDate.now().plusMonths(p)
+                        UUID.randomUUID().toString(), // idPresupuesto único
+                        "Presupuesto " + p + " de " + nombres[i], // nombre
+                        1000 * p + 200 * i, // montoTotal
+                        0, // montoGastado inicial
+                        categorias.get((i + p) % categorias.size()) // categoría asociada
                 );
                 presupuestos.add(presupuesto);
             }

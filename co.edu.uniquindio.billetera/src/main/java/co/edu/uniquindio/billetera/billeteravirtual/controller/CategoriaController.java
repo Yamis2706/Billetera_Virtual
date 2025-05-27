@@ -58,6 +58,17 @@ public class CategoriaController {
         });
     }
 
+    private String obtenerSiguienteIdCategoria() {
+        return String.valueOf(
+                listaCategorias.stream()
+                        .mapToInt(c -> {
+                            try { return Integer.parseInt(c.getId()); } catch (Exception e) { return 0; }
+                        })
+                        .max()
+                        .orElse(0) + 1
+        );
+    }
+
     @FXML
     private void crearCategoria() {
         String nombre = txtNombre.getText().trim();
@@ -66,12 +77,12 @@ public class CategoriaController {
             mostrarMensaje("Debe ingresar nombre y descripción.", false);
             return;
         }
-        String id = String.valueOf(contadorId++);
-        Categoria nueva = new Categoria(id, nombre, descripcion);
+        Categoria nueva = new Categoria("0", nombre, descripcion); // ID temporal
         DataUtil.agregarCategoria(nueva);
-        listaCategorias.setAll(DataUtil.listarCategorias());
+        reasignarIdsCategorias();
         limpiarCampos();
         mostrarMensaje("Categoría creada exitosamente.", true);
+        TransaccionController.recargarCategoriasGlobal();
     }
 
     @FXML
@@ -88,9 +99,10 @@ public class CategoriaController {
         }
         Categoria actualizada = new Categoria(categoriaSeleccionada.getId(), nombre, descripcion);
         DataUtil.actualizarCategoria(actualizada);
-        listaCategorias.setAll(DataUtil.listarCategorias());
+        reasignarIdsCategorias();
         limpiarCampos();
         mostrarMensaje("Categoría actualizada con éxito.", true);
+        TransaccionController.recargarCategoriasGlobal();
     }
 
     @FXML
@@ -100,10 +112,23 @@ public class CategoriaController {
             return;
         }
         DataUtil.eliminarCategoria(categoriaSeleccionada.getId());
-        listaCategorias.setAll(DataUtil.listarCategorias());
+        reasignarIdsCategorias();
         limpiarCampos();
         mostrarMensaje("Categoría eliminada.", true);
+        TransaccionController.recargarCategoriasGlobal();
     }
+
+    // Agrega este método en CategoriaController
+    private void reasignarIdsCategorias() {
+        List<Categoria> categorias = DataUtil.listarCategorias();
+        for (int i = 0; i < categorias.size(); i++) {
+            categorias.get(i).setId(String.valueOf(i + 1));
+        }
+        DataUtil.guardarCategorias(categorias);
+        listaCategorias.setAll(categorias);
+    }
+
+
 
     private void limpiarCampos() {
         txtNombre.clear();

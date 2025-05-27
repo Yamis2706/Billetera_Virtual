@@ -1,30 +1,34 @@
 package co.edu.uniquindio.billetera.billeteravirtual.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 public class Presupuesto implements Serializable {
+    private String idPresupuesto;
     private String nombre;
-    private double monto;
-    private LocalDate fechaInicio;
-    private LocalDate fechaFin;
+    private double montoTotal;
+    private double montoGastado;
+    private Categoria categoria;
 
-    public Presupuesto(String nombre, double monto, LocalDate fechaInicio, LocalDate fechaFin) {
+    public Presupuesto(String idPresupuesto, String nombre, double montoTotal, double montoGastado, Categoria categoria) {
+        this.idPresupuesto = idPresupuesto;
         this.nombre = nombre;
-        this.monto = monto;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+        this.montoTotal = montoTotal;
+        this.montoGastado = montoGastado;
+        this.categoria = categoria;
     }
+
+    public String getIdPresupuesto() { return idPresupuesto; }
+    public void setIdPresupuesto(String idPresupuesto) { this.idPresupuesto = idPresupuesto; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public double getMonto() { return monto; }
-    public void setMonto(double monto) { this.monto = monto; }
+    public double getMontoTotal() { return montoTotal; }
+    public void setMontoTotal(double montoTotal) { this.montoTotal = montoTotal; }
 
-    public LocalDate getFechaInicio() { return fechaInicio; }
-    public void setFechaInicio(LocalDate fechaInicio) { this.fechaInicio = fechaInicio; }
+    public double getMontoGastado() { return montoGastado; }
+    public void setMontoGastado(double montoGastado) { this.montoGastado = montoGastado; }
 
-    public LocalDate getFechaFin() { return fechaFin; }
-    public void setFechaFin(LocalDate fechaFin) { this.fechaFin = fechaFin; }
+    public Categoria getCategoria() { return categoria; }
+    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
 }

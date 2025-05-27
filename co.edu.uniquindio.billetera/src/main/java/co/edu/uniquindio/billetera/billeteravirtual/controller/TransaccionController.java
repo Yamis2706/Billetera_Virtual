@@ -1,4 +1,3 @@
-
 package co.edu.uniquindio.billetera.billeteravirtual.controller;
 
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,13 +28,30 @@ public class TransaccionController {
     @FXML private DatePicker dpFecha;
     @FXML private ComboBox<String> cbTipo;
     @FXML private ComboBox<Categoria> cbCategoria;
-    @FXML private Button btnCrear, btnModificar, btnEliminar, btnFiltrar, btnBuscarId;
+    @FXML private Button btnCrear, btnModificar, btnEliminar, btnFiltrar, btnBuscarId, btnLimpiarBusqueda;
     @FXML private Label lblMensaje;
+
+    // Filtros
+    @FXML private ComboBox<String> cbFiltroOpcion;
+    @FXML private ComboBox<String> cbFiltroTipo;
+    @FXML private DatePicker dpFiltroFecha;
     @FXML private ComboBox<Categoria> cbFiltroCategoria;
 
     private ObservableList<Transaccion> listaTransacciones;
 
     private static final String[] TIPOS = {"Depósito", "Retiro", "Transferencia"};
+
+    private static TransaccionController instancia;
+
+    public TransaccionController() {
+        instancia = this;
+    }
+
+    public static void recargarCategoriasGlobal() {
+        if (instancia != null) {
+            instancia.recargarCategorias();
+        }
+    }
 
     @FXML
     public void initialize() {
@@ -55,9 +71,8 @@ public class TransaccionController {
 
         List<Categoria> categorias = DataUtil.cargarCategorias();
         cbCategoria.getItems().setAll(categorias);
-        cbFiltroCategoria.getItems().setAll(categorias);
 
-        StringConverter<Categoria> categoriaStringConverter = new StringConverter<>() {
+        cbCategoria.setConverter(new StringConverter<>() {
             @Override
             public String toString(Categoria object) {
                 return object != null ? object.getNombre() : "";
@@ -66,18 +81,39 @@ public class TransaccionController {
             public Categoria fromString(String string) {
                 return categorias.stream().filter(c -> c.getNombre().equals(string)).findFirst().orElse(null);
             }
-        };
-        cbCategoria.setConverter(categoriaStringConverter);
-        cbFiltroCategoria.setConverter(categoriaStringConverter);
+        });
+
+        // Filtros
+        if (cbFiltroOpcion != null) {
+            cbFiltroOpcion.valueProperty().addListener((obs, oldVal, newVal) -> actualizarVisibilidadFiltros());
+        }
+        if (cbFiltroTipo != null) {
+            cbFiltroTipo.getItems().setAll(TIPOS);
+        }
+        if (cbFiltroCategoria != null) {
+            cbFiltroCategoria.getItems().setAll(categorias);
+            cbFiltroCategoria.setConverter(new StringConverter<>() {
+                @Override
+                public String toString(Categoria object) {
+                    return object != null ? object.getNombre() : "";
+                }
+                @Override
+                public Categoria fromString(String string) {
+                    return categorias.stream().filter(c -> c.getNombre().equals(string)).findFirst().orElse(null);
+                }
+            });
+        }
 
         tablaTransacciones.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> mostrarTransaccion(newSel));
+        actualizarVisibilidadFiltros();
     }
 
-    // En TransaccionController.java, crea un método:
-    private void recargarCategorias() {
+    public void recargarCategorias() {
         List<Categoria> categorias = DataUtil.cargarCategorias();
         cbCategoria.getItems().setAll(categorias);
-        cbFiltroCategoria.getItems().setAll(categorias);
+        if (cbFiltroCategoria != null) {
+            cbFiltroCategoria.getItems().setAll(categorias);
+        }
     }
 
     private void mostrarTransaccion(Transaccion t) {
@@ -159,16 +195,56 @@ public class TransaccionController {
         }
     }
 
+    private void actualizarVisibilidadFiltros() {
+        String opcion = cbFiltroOpcion != null ? cbFiltroOpcion.getValue() : null;
+        if (cbFiltroTipo != null) cbFiltroTipo.setVisible("Tipo".equals(opcion));
+        if (dpFiltroFecha != null) dpFiltroFecha.setVisible("Fecha".equals(opcion));
+        if (cbFiltroCategoria != null) cbFiltroCategoria.setVisible("Categoría".equals(opcion));
+    }
+
     @FXML
-    private void filtrarPorCategoria() {
-        Categoria filtro = cbFiltroCategoria.getValue();
-        if (filtro != null) {
-            List<Transaccion> filtradas = listaTransacciones.stream()
-                    .filter(t -> t.getCategoria() != null && filtro.getNombre().equals(t.getCategoria().getNombre()))
-                    .collect(Collectors.toList());
-            tablaTransacciones.setItems(FXCollections.observableArrayList(filtradas));
+    private void filtrarTransacciones() {
+        if (cbFiltroOpcion == null) return;
+        String opcion = cbFiltroOpcion.getValue();
+        if ("Tipo".equals(opcion) && cbFiltroTipo != null) {
+            String tipo = cbFiltroTipo.getValue();
+            if (tipo != null && !tipo.isEmpty()) {
+                List<Transaccion> filtradas = listaTransacciones.stream()
+                        .filter(t -> tipo.equals(t.getTipo()))
+                        .collect(Collectors.toList());
+                tablaTransacciones.setItems(FXCollections.observableArrayList(filtradas));
+                lblMensaje.setText("Filtrado por tipo.");
+            } else {
+                tablaTransacciones.setItems(listaTransacciones);
+                lblMensaje.setText("Seleccione un tipo.");
+            }
+        } else if ("Fecha".equals(opcion) && dpFiltroFecha != null) {
+            LocalDate fecha = dpFiltroFecha.getValue();
+            if (fecha != null) {
+                List<Transaccion> filtradas = listaTransacciones.stream()
+                        .filter(t -> fecha.equals(t.getFecha()))
+                        .collect(Collectors.toList());
+                tablaTransacciones.setItems(FXCollections.observableArrayList(filtradas));
+                lblMensaje.setText("Filtrado por fecha.");
+            } else {
+                tablaTransacciones.setItems(listaTransacciones);
+                lblMensaje.setText("Seleccione una fecha.");
+            }
+        } else if ("Categoría".equals(opcion) && cbFiltroCategoria != null) {
+            Categoria categoria = cbFiltroCategoria.getValue();
+            if (categoria != null) {
+                List<Transaccion> filtradas = listaTransacciones.stream()
+                        .filter(t -> t.getCategoria() != null && categoria.getNombre().equals(t.getCategoria().getNombre()))
+                        .collect(Collectors.toList());
+                tablaTransacciones.setItems(FXCollections.observableArrayList(filtradas));
+                lblMensaje.setText("Filtrado por categoría.");
+            } else {
+                tablaTransacciones.setItems(listaTransacciones);
+                lblMensaje.setText("Seleccione una categoría.");
+            }
         } else {
             tablaTransacciones.setItems(listaTransacciones);
+            lblMensaje.setText("Seleccione un filtro.");
         }
     }
 
